@@ -2,16 +2,17 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
-% Änderungen V3.20 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
-% - Mehrwertsteuersatz angepasst. von 16/7 auf 19/7
-% - Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
-%   hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
+% Änderungen V3.30 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Fehler behoben der eine MwSt von 0% nicht möglich machte
 % - Euro als Standardwährung gesetzt, für DM muss "\DMark" gesetzt
 %   werden
 % - Macro hinzugefügt um einen Prefix für jedes Element eines Artikels
 %   zu setzen. Damit kann beispielsweise die Schriftgröße der Artikel
 %   zeilen angepasst werden.
+% Änderungen V3.20 (2009-12-08, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Mehrwertsteuersatz angepasst. von 16/7 auf 19/7
+% - Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
+%   hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
 % Änderungen V3.10 (2001-04-01, Ulrich Sibiller <uli42@web.de>)
 % - Statt "Artikel" steht jetzt "Beschreibung" in der Titelzeile
 %   Eines Tages soll der User das einstellen können
@@ -45,7 +46,7 @@
 %<driver> \ProvidesFile{rechnung.drv}
 % \fi
 %         \ProvidesFile{rechnung.dtx}
-          [2001/04/01 v3.10 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers]
+          [2010/03/05 v3.30 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers]
 %
 % \iffalse
 %<*driver>
@@ -62,9 +63,9 @@
 % \fi  
 %
 % \GetFileInfo{rechnung.dtx}
-% \title{Das \textsf{rechnung} Paket V3.10}
+% \title{Das \textsf{rechnung} Paket V3.30}
 % \author{M G Berberich, Ulrich Sibiller, Tom Kazimiers}
-% \date{2001-04-01}
+% \date{2010-03-05}
 %
 % \let\env\textsf
 %
@@ -96,12 +97,12 @@
 %    {Statt Artikel wird Beschreibung in der Titelzeile verwendet, Anzahl kann
 %    muss keine ganze Zahl mehr sein<uli42@web.de>}
 % \changes{v3.20} {2009/12/08}
-%    {Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
+%    {Einen Rechnungstyp "K" für "nmsatzsteuer/keine Mehrwertsteuer"
 %    hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
 %    <tom@voodoo-arts.net>}
 % \changes{v3.30} {2010/03/05}
-%    {Fehler behoben der eine MwSt von 0\% nicht m<F6>glich machte,
-%    Euro als Standardw<E4>hrung gesetzt, f<FC>r DM muss "\DMark" gesetzt
+%    {Fehler behoben der eine MwSt von 0\% nicht möglich machte,
+%    Euro als Standardw<E4>hrung gesetzt, für DM muss "\DMark" gesetzt
 %    werden; Mehrwertsteuersatz korrigiert (von 16/7 auf 19/7; Mittels
 %    einem Prefixmakro kann allen Tabellenelementen etwas vorangsteltt
 %    werden
@@ -192,6 +193,11 @@
 % Zum Beispiel:\\
 % "\Artikel[e]{5}{Der Herr der Ringe}{59,80}"\\ fügt eine Position mit
 % 5 \emph{Herr der Ringe} zum ermäßigten Mehrwertsteuersatz ein.
+% Mittels dem Makro "\ArtikelPrefix{...}" kann man jedem Element der
+% Artikel einen Prefix geben. Damit lässt sich beispielsweise die
+% Schriftgröße dieser Auflistung im Ganzen ändern:\\
+% "\ArtikelPrefix{\small}"
+%
 %
 % Versandkosten lassen sich mit \DescribeMacro{\Versandkosten}
 % "\Versandkosten{"\textlangle Preis\textrangle"}" eingeben und
@@ -459,7 +465,7 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@RCHustsi}
-% Umsatzsteuer, wenn Mehrwertsteuer nicht ausweisbar
+% Umsatzsteuer, wenn Mehrwertsteuer nach \S19 UStG nicht ausweisbar
 %    \begin{macrocode}
 \newcommand*\@RCHustsi{0}
 %    \end{macrocode}
@@ -988,7 +994,7 @@
   \else\expandafter\if\@RCHtype B \@RCHbrutto
   \else\expandafter\if\@RCHtype K \@RCHkeineUST
   \else\PackageError{rechnung}{Unbekannter Rechnungstyp `\@RCHtype'}%
-  \fi\fi\fi
+  \fi\fi\fi\fi
   \global\@RCHsum\@RCHsum\global\@RCHmwst\@RCHmwst
 %    \end{macrocode}
 % bißchen Platz unter der Rechnung
