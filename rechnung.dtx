@@ -1,0 +1,980 @@
+% \iffalse
+%% File: rechnung.dtx Copyright (C) 1998 M G Berberich
+%% berberic@fmi.uni-passau.de
+
+% Änderungen V3.20 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
+%   hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
+% - Fehler behoben der eine MwSt von 0% nicht möglich machte
+% - Euro als Standardwährung gesetzt, für DM muss "\DMark" gesetzt
+%   werden
+% Änderungen V3.10 (2001-04-01, Ulrich Sibiller <uli42@web.de>)
+% - Statt "Artikel" steht jetzt "Beschreibung" in der Titelzeile
+%   Eines Tages soll der User das einstellen können
+% - Kommazahlen für Anzahl werden jetzt korrekt behandelt. Beträge werden
+%   bei der Ausgabe korrekt gerundet (0,34 * 0,20 -> 0,07; 0,34 * 0,24 = 0,09)    
+% - Daraus resultierend kann man jetzt für Zahlen auch weniger
+%   als zwei Nachkommastellen angeben.
+% - Spaltenbreiten werden zentral definiert (leider nicht automatisch, sollten
+%   user definable sein)
+% - Bugfix: Wenn Positionsspalte abgeschaltet war, dann rutschten die Zeilen
+%   ein klein wenig nach oben (weil \strut dann fehlte)
+%
+% Änderungen V3.00 (2001-03-23, Ulrich Sibiller <uli42@web.de>)
+% - Positionsspalte kann abgeschaltet werden (\PositionEin/Aus)
+% - Mehrwertsteuer wird separat in zwei Zeilen ausgegeben
+% - horizontale Trennlinien zwischen den einzelnen Artikeln
+%   können abgeschaltet werden (\TrennerEin/Aus)
+% - Reduktion auf weniger Code (durch Parametrisierung), da ein
+%   Großteil identisch war
+% - Neues Kommando: \Posten ist ein Alias zu Artikel 
+% - Bugfix: Versandkosten mit erm. MwSt-Satz funktionieren jetzt. Keine
+%   Ahnung, ob es sowas ueberhaupt gibt, aber jedenfalls wurde das
+%   bisher nicht korrekt angezeigt!
+% - Neues Environment: \Bestellung
+%
+%<*dtx>
+          \ProvidesFile{rechnung.dtx}
+%</dtx>
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{rechnung}
+%<driver> \ProvidesFile{rechnung.drv}
+% \fi
+%         \ProvidesFile{rechnung.dtx}
+          [2001/04/01 v3.10 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers]
+%
+% \iffalse
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{textcomp}
+\usepackage{german}
+\usepackage{rechnung}
+\begin{document}
+\DocInput{rechnung.dtx}
+\end{document}
+%</driver>
+% \fi  
+%
+% \GetFileInfo{rechnung.dtx}
+% \title{Das \textsf{rechnung} Paket V3.10}
+% \author{M G Berberich, Ulrich Sibiller, Tom Kazimiers}
+% \date{2001-04-01}
+%
+% \let\env\textsf
+%
+%  \maketitle
+%
+% \begin{abstract}
+%  Dieses Paket definiert \env{rechnung} und 
+%  \env{rechnung\textasteriskcentered} Umgebungen
+%  um Rechnungen und Bestellungen zu erzeugen.
+% \end{abstract}
+%
+% \changes{v1.00}{1998/11/16}
+%    {Auskoppelung der Umgebungen aus bmgbrief.cls}
+% 
+% \changes{v1.01}{1998/11/19}
+%    {Zahlenleseroutine erneuert. Sie gibt jetzt lesbare Fehlermeldungen
+%     bei falscher Nachkommastellenzahl}
+%
+% \changes{v2.00}{1998/11/25}
+%    {Erweiterung um Netto- und Bruttorechnungen mit Mehrwertsteuer}
+%
+% \changes{v2.01}{1998/11/25}
+%    {Rundungsfehler in der Bruttorechnungen behoben}
+%
+% \changes{v3.00}{2001/03/23}
+%    {Positionen und Trennlinien abschaltbar, Code Cleanup <uli42@web.de>}
+%
+% \changes{v3.01}{2001/04/01}
+%    {Statt Artikel wird Beschreibung in der Titelzeile verwendet, Anzahl kann
+%    muss keine ganze Zahl mehr sein<uli42@web.de>}
+% \changes{v3.02} {2009/12/08}
+%    {Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
+%    hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
+%    <tom@voodoo-arts.net>}
+% \changes{v3.03} {2010/03/05}
+%    {Fehler behoben der eine MwSt von 0\% nicht möglich machte,
+%    Euro als Standardwährung gesetzt, für DM muss "\DMark" gesetzt
+%    werden <tom@voodoo-arts.net>}
+%
+% \DeleteShortVerb{\|}
+% \MakeShortVerb{\"}
+% \let\package\textsf
+% \let\env\textsf
+%
+% \section{Rechtliches}
+%
+% 
+% Da das Paket ohne jegliche Kosten lizenziert wird, besteht keinerlei
+% Gewährleistung.  Ich hafte weder für unmittelbar noch mittelbar
+% entstehende Schäden aus der Verwendung des Paketes. Ich stelle das
+% Paket so zur Verfügung, \glqq wie es ist\grqq, ohne irgendeine
+% Gewährleistung, weder ausdrücklich noch implizit, einschließlich,
+% aber nicht begrenzt auf, die Tauglichkeit und Verwendbarkeit für
+% einen bestimmten Zweck. Das volle Risiko bezüglich Qualität und
+% Leistungsfähigkeit liegt bei Ihnen. Sollte das Programm fehlerhaft
+% sein, übernehmen Sie die Kosten für notwendigen Service, Reparatur
+% oder Korrektur.
+%
+% Die Weitergabe dieses Pakets ist erlaubt solange es
+% \emph{vollständig} weitergegeben wird. Änderungen an Dateien dieses
+% Pakets sind nur zulässig wenn die Datei \emph{vorher} umbenannt
+% wird, mein Copyright-Vermerke und der Haftungssausschluß erhalten
+% bleiben und klar ersichtlich ist, daß es sich um eine veränderte
+% Variante handelt.
+%
+%
+%
+% \section{Beschreibung}
+%
+% \DescribeEnv{Rechnung}\DescribeEnv{Bestellung}
+% Die Umgebung \env{Rechnung} bzw \env{Bestellung} erstellt eine Rechnung
+% oder Bestellung. Die beiden Makros sind identisch, es wird jedoch empfohlen,
+% zur besseren Lesbarkeit das jeweils passende zu verwenden. Im weiteren Text 
+% wird nur \env{Rechnung} verwendet.
+% Jede Position besteht aus einer Positionsnummer, die automatisch
+% erstellt wird, der Anzahl, der Artikelbeschreibung und dem
+% Einzelpreis des Artikels. Die Preise und die Gesamtsumme werden von
+% \env{Rechnung} berechnet. \env{Rechnung} hat ein optionales
+% Argument, daß den Typ der Rechnung/Bestellung angibt:
+% \begin{description}
+%   \item[\texttt{\textbackslash begin\{Rechnung\}}]
+%     Eine \glqq Rechnung\grqq\ ohne Mehrwertsteuer. Diese Variante eignet 
+%     sich z.\,B. zur Erstelllung von Bestellungen.
+%   \item[\texttt{\textbackslash begin\{Rechnung\}[N]}]
+%     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind 
+%     und bei der die Mehrwertsteuer angegeben und zum Endpreis addiert 
+%     wird. (z\.B. für gewerbliche Kunden)
+%   \item[\texttt{\textbackslash begin\{Rechnung\}[B]}]
+%     Eine Rechnung bei der alle Preise als Bruttopreise angegeben sind 
+%     und die enthaltene Mehrwertsteuer ausgewiesen ist. 
+%     (z.\,B. für Endverbraucher)
+%   \item[\texttt{\textbackslash begin\{Rechnung\}[K]}]
+%     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind 
+%     und die Mehrwertsteuer nach \S19 UStG nicht ausweisbar ist. 
+%     (z.\,B. für Selbstständige im Kleingewerbe)
+% \end{description}
+% \DescribeEnv{Rechnung\textasteriskcentered}
+% \DescribeEnv{Bestellung\textasteriskcentered}
+% Die Umgebung \env{Rechnung\textasteriskcentered} bzw. \env{Bestellung\textasteriskcentered}
+% ist zu \env{Rechnung} bzw. \env{Bestellung}
+% identisch, bis auf die, hier zusätzlich vorhandenen, Artikelnummern.
+% Der Platz für die Artikelbeschreibungen wird entsprechend kleiner.
+%
+% \DescribeMacro{\Artikel}\DescribeMacro{\Posten}
+% Mit "\Artikel" oder "\Posten" werden die einzelnen Positionen
+% der Rechnung eingegeben. Es besteht kein
+% Unterschied zwischen den beiden Makros.\\
+% "\Artikel{"\textlangle Anzahl\textrangle"}{"
+%    \textlangle Artikel\textrangle"}{"
+%    \textlangle Einzelpreis\textrangle"}"\\
+% bzw. bei \env{Rechnung\textasteriskcentered}
+% und \env{Bestellung\textasteriskcentered}:\\
+% "\Artikel{"\textlangle Anzahl\textrangle"}{"
+%    \textlangle Artikelnummer\textrangle"}{"
+%    \textlangle Artikel\textrangle"}{"
+%    \textlangle Einzelpreis\textrangle"}"\\
+% "\Artikel" hat ein optionales 
+% Argument, daß es erlaubt für diesen Artikel den ermäßigten
+% Mehrwertsteuersatz auszuwählen. Diese Positionen werden hinter dem
+% Preis mit einem $^*$ gekennzeichnet und unter der Tabelle wird bei
+% Netto- und Bruttorechnungen eine \glqq Fußnote\grqq\ erzeugt. 
+% Zum Beispiel:\\
+% "\Artikel[e]{5}{Der Herr der Ringe}{59,80}"\\ fügt eine Position mit
+% 5 \emph{Herr der Ringe} zum ermäßigten Mehrwertsteuersatz ein.
+%
+% Versandkosten lassen sich mit \DescribeMacro{\Versandkosten}
+% "\Versandkosten{"\textlangle Preis\textrangle"}" eingeben und
+% bekommen keine Positionsnummer. Es sind auch ermäßigte Versandkosten über
+% den optionalen Parameter "[e]" möglich, allerdings ist nicht bekannt, ob
+% es sowas überhaupt irgendwo gibt.
+%
+% \DescribeMacro{\Waehrung} Die Währungseinheit, die hinter die Beträge
+% gesetzt wird, ist auf DM voreingestellt. Mit "\Waehrung{...}" kann
+% eine beliebige andere Währung gesetzt werden, "\Waehrung{F}" setzt
+% z.\,B. die Währung auf \glqq F\grqq. Für den Euro gibt es eine Abkürzung
+% "\Euro" die identisch zu "\Waehrung{\texteuro}" ist und (falls das
+% "textcomp"-Paket eingebunden ist) ein \texteuro\ erzeugt.
+%
+% \DescribeMacro{\Steuersatz}Die Steuersätze lassen sich mit
+% "\Steuersatz{"\textlangle Steuersatz 1\textrangle"}{"
+%  \textlangle Steuersatz 2\textrangle"}" festlegen. Standardmäßig ist
+% Steuersatz 1 auf "16" und Steuersatz 2 auf "7" eingestellt. Dies entspricht
+% dem Mehrwertsteuersatz von 16\% und dem ermäßigtem Mehrwertsteuersatz von
+% 7\%. 
+%
+% \DescribeMacro{\Gesamtsumme}\DescribeMacro{\Mehrwertsteuer}
+% Nach dem Ende einer \env{Rechnung}- bzw. \env{Bestellung}\-Umgebung lassen
+% sich die Gesamtsumme und die Mehrwertsteuer 
+% noch mit den Makros "\Gesamtsumme" und 
+% "\Mehrwertsteuer" in den Text einfügen.
+%
+% \DescribeMacro{\PositionEin}\DescribeMacro{\PositionAus}
+% Hiermit läßt sich die Ausgabe der Positionsspalte aktivieren bzw. unterdrücken,
+% da diese nicht immer benötigt wird. Voreingestellt ist "\PositionEin"
+% Die Makros können beliebig oft
+% auftreten, es wird jedoch nur das letzte vor dem ersten Artikel beachtet.
+% Sobald ein Artikel angegeben wurde, werden die Makros ignoriert.
+%
+% \DescribeMacro{\TrennerEin}\DescribeMacro{\TrennerAus}
+% Eine Rechnung sieht oft besser aus, wenn sich keine Trennlinien zwischen den
+% einzelnen Posten befinden. Da dies aber Geschmackssache ist, kann man die
+% Ausgabe von Trennlinien mit den Makros "\TrennerEin" bzw. "\TrennerAus"
+% steuern. Voreinstellung ist "\TrennerEin".
+% Die Makros können beliebig oft
+% auftreten, es wird jedoch nur das letzte vor dem ersten Artikel beachtet.
+% Sobald ein Artikel angegeben wurde, kann die Einstellung nicht mehr
+% verändert werden..
+%
+% \section{Beispiele}
+%
+% \subsection{Bestellung ohne Artikelnummern}
+% Dieses Beispiel demonstriert, daß eine Vielzahl von Textauszeichnungs-
+% und Formatierungsmöglichkeiten innerhalb einer \env{Rechnung}-Umgebung 
+% verwendet werden kann.
+% 
+% \begin{verbatim}
+% \begin{Rechnung}
+% \Artikel{1}{Der Herr der Ringe
+%   \begin{enumerate}
+%     \item Die Gefährten
+%     \item Die zwei Türme
+%     \item Die Rückkehr des Königs
+%     \end{enumerate}
+%     John Ronald R. Tolkien\\ 
+%     \scriptsize Taschenbuch, Erschienen 1972}{59,80}
+% \Artikel{4}{\textbf{Der kleine Hobbit}\\
+%   \textit{John Ronald R. Tolkien}, Taschenbuch, Erschienen 1995}{12,90}
+% \Versandkosten{9,90}
+% \end{Rechnung}
+% \noindent Ein Verrechnungsscheck über \Gesamtsumme\ liegt bei.
+% \end{verbatim}
+%
+% \vbox{
+% \begin{Rechnung}
+% \Artikel{1}{Der Herr der Ringe
+%   \begin{enumerate}
+%     \item Die Gefährten
+%     \item Die zwei Türme
+%     \item Die Rückkehr des Königs
+%     \end{enumerate}
+%     John Ronald R. Tolkien\\ 
+%     \scriptsize Taschenbuch, Erschienen 1972}{59,80}
+% \Artikel{4}{\textbf{Der kleine Hobbit}\\
+%   \textit{John Ronald R. Tolkien}, Taschenbuch, Erschienen 1995}{12,90}
+% \Versandkosten{9,90}
+% \end{Rechnung}
+% \noindent Ein Verrechnungsscheck über\Gesamtsumme\ liegt bei.
+% }
+% \subsection{Bestellung mit Artikelnummern}
+%
+% \begin{verbatim}
+% \begin{Rechnung*}
+% \Artikel{1}{3345765}{The \TeX-Book von Donald E. Knuth}{85,47}
+% \Artikel{1500}{879847}{Büroklammern}{0,03}
+% \Versandkosten{12,95}
+% \end{Rechnung*}
+% \end{verbatim}
+%
+% \vbox{
+% \begin{Rechnung*}
+% \Artikel{1}{3345765}{The \TeX-Book von Donald E. Knuth}{85,47}
+% \Artikel{1500}{879847}{Büroklammern}{0,03}
+% \Versandkosten{12,95}
+% \end{Rechnung*}
+% }
+%
+% \subsection{Rechnung mit Nettopreisen und Mehrwertsteuer}
+%
+% \begin{verbatim}
+% \begin{Rechnung}[N]
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
+% \Artikel{20}{Erdnüße}{0,99}
+% \Versandkosten{10,00}
+% \end{Rechnung}
+% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \Mehrwertsteuer\ Mehrwertsteuer enthalten.
+% \end{verbatim}
+%
+% \vbox{
+% \begin{Rechnung}[N]
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
+% \Artikel{20}{Erdnüsse}{0,85}
+% \Versandkosten{10,00}
+% \end{Rechnung}
+% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \Mehrwertsteuer\ Mehrwertsteuer enthalten.
+% }
+%
+% \subsection{Rechnung mit Nettopreisen und Mehrwertsteuer, ohne Trennlinien und Positionsnummern}
+% 
+% \begin{verbatim}
+% \begin{Rechnung}[N]
+% \PositionAus
+% \TrennerAus
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
+% \Artikel{20}{Erdnüße}{0,99}
+% \Versandkosten{10,00}
+% \end{Rechnung}
+% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \Mehrwertsteuer\ Mehrwertsteuer enthalten.
+% \end{verbatim}
+%
+% \vbox{
+% \begin{Rechnung}[N]
+% \PositionAus
+% \TrennerAus
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
+% \Artikel{20}{Erdnüsse}{0,85}
+% \Versandkosten{10,00}
+% \end{Rechnung}
+% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \Mehrwertsteuer\ Mehrwertsteuer enthalten.
+% }
+%
+% \subsection{Rechnung mit Bruttopreisen und ausgewiesener Mehrwertsteuer}
+%
+% Hier mal ein Beispiel mit EUR:
+%
+% \begin{verbatim}
+% \Euro
+% \begin{Rechnung}[B]
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{42,73}
+% \Artikel{20}{Erdnüsse}{0,49}
+% \Versandkosten{5,80}
+% \end{Rechnung}
+% \end{verbatim}
+%
+% \vbox{
+% \Euro
+% \begin{Rechnung}[B]
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{42,73}
+% \Artikel{20}{Erdnüsse}{0,49}
+% \Versandkosten{5,80}
+% \end{Rechnung}
+% }
+%
+% \cleardoublepage
+%
+%
+%
+% \section{\LaTeX-Code}
+%
+% \subsection{Deklarationen}
+%
+% Einige Zähler für Position, Gesamtsumme, Mehrwertsteuer und zur 
+% Parameterübergabe und temporäre Daten
+%    \begin{macrocode}
+\newcount\@RCHcnt \newcount\@RCHsum \newcount\@RCHtmp
+\newcount\@RCHmwst \newcount\@RCHmwsti \newcount\@RCHmwstii
+\newcount\@RCHtmptmp
+%    \end{macrocode}
+%
+% Die Dimensionen der Spalten
+%    \begin{macrocode}
+\newdimen\@RCHPosWidth
+\newdimen\@RCHAnzWidth
+\newdimen\@RCHArtnumWidth
+\newdimen\@RCHArtWidth
+\newdimen\@RCHEinzelWidth
+\newdimen\@RCHGesamtWidth
+\@RCHPosWidth=1.5em%
+\@RCHAnzWidth=2.9em%
+\@RCHArtnumWidth=5em%
+\@RCHEinzelWidth=4.8em%
+\@RCHGesamtWidth=6.1em%
+%    \end{macrocode}
+%  \begin{macro}{\@RCHerm}
+% Ein Schalter der das Auftauchen von ermäßigtem MwSt-Satz anzeigt.
+%    \begin{macrocode}
+\newif\if@RCHerm
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHpos}
+% Ein Schalter der das Anzeigen der Pos-Spalte beeinflusst
+%    \begin{macrocode}
+\newif\if@RCHpos
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHfirst}
+% Ein Schalter der anzeigt, daß der erste Artikel eingefügt wird
+%    \begin{macrocode}
+\newif\if@RCHfirst
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHhor}
+% Ein Schalter der anzeigt, ob horizontale Trennlinien zwischen den
+% Artikeln eingefügt werden
+%    \begin{macrocode}
+\newif\if@RCHhor
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHartnum}
+% Ein Schalter der anzeigt, ob die Artikelnr ausgegeben wird.
+%    \begin{macrocode}
+\newif\if@RCHartnum
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHinit}
+% Ein Schalter der anzeigt, ob schon initialisiert wurde.
+%    \begin{macrocode}
+\newif\if@RCHinit
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHwdt}
+% Breite der Spalte für die Artikelbezeichnung
+%    \begin{macrocode}
+\newdimen\@RCHwdt
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHstsi}
+% normalen Mehrwertsteuersatz
+%    \begin{macrocode}
+\newcommand*\@RCHstsi{16}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHstsii}
+% ermäßigter Mehrwertsteuersatz
+%    \begin{macrocode}
+\newcommand*\@RCHstsii{7}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHustsi}
+% Umsatzsteuer, wenn Mehrwertsteuer nicht ausweisbar
+%    \begin{macrocode}
+\newcommand*\@RCHustsi{0}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@waehrung}
+% aktuelle Währung. Voreingestellt ist Euro.
+%    \begin{macrocode}
+\newcommand*\@waehrung{\texteuro}
+%    \end{macrocode}
+%  \end{macro}
+%
+% \subsection{Benutzermacros}
+%
+%  \begin{macro}{\Steuersatz}
+% Stellt neue Mehrwertsteuersätze (normal und ermäßigt) ein.
+%    \begin{macrocode}
+\newcommand*\Steuersatz[2]{\def\@RCHstsi{#1}\def\@RCHstsii{#2}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\Waehrung}
+% Stellt eine beliebige Währung ein.
+%    \begin{macrocode}
+\newcommand*\Waehrung[1]{\def\@waehrung{#1}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\PositionEin/Aus}
+% Schaltet Positionsnummern ein oder aus.
+%    \begin{macrocode}
+\newcommand*\PositionEin[0]{\if@RCHinit\else\global\@RCHpostrue\fi}
+\newcommand*\PositionAus[0]{\if@RCHinit\else\global\@RCHposfalse\fi}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\TrennerEin/Aus}
+% Schaltet Positionsnummern ein oder aus.
+%    \begin{macrocode}
+\newcommand*\TrennerEin[0]{\if@RCHinit\else\global\@RCHhortrue\fi}
+\newcommand*\TrennerAus[0]{\if@RCHinit\else\global\@RCHhorfalse\fi}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\Euro}
+% Stellt die Währung auf Euro um. (benötigt textcomp)
+%    \begin{macrocode}
+\newcommand*\Euro{\def\@waehrung{\texteuro}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\DMark}
+% Stellt die Währung auf DM um. (benötigt textcomp)
+%    \begin{macrocode}
+\newcommand*\DMark{\def\@waehrung{D\kern-0.05em M}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\Gesamtsumme}
+% Gibt die Gesamtsumme der letzten Tabelle aus.
+%    \begin{macrocode} 
+\newcommand*\Gesamtsumme{\writeCurrency\@RCHsum}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\Mehrwertsteuer}
+% Gibt die Mehrwertsteuer der letzten Tabelle aus.
+%    \begin{macrocode} 
+\newcommand*\Mehrwertsteuer{\writeCurrency\@RCHmwst}
+%    \end{macrocode}
+%  \end{macro}
+%
+% \subsection{Zahlenmacros}
+%
+%  \begin{macro}{\@RCHwrite}
+% Gibt einen Zähler gerundet auf zwei Nachkommastellen aus.  
+% (cntr/100,cntr\%100)
+%    \begin{macrocode} 
+\newcommand*\@RCHwrite[1]{
+  \@tempcnta=#1
+  \@tempcntb\@tempcnta
+  \divide\@tempcnta100 \the\@tempcnta,%
+  \multiply\@tempcnta100\advance\@tempcntb-\@tempcnta
+  \@tempcnta\@tempcntb\divide\@tempcnta10 \the\@tempcnta
+  \multiply\@tempcnta10\advance\@tempcntb-\@tempcnta 
+  \the\@tempcntb
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\writeCurrency}
+% Gibt einen Zähler als Währungsbetrag aus.
+%    \begin{macrocode} 
+\newcommand*\writeCurrency[1]{\@RCHwrite{#1}\,\@waehrung}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\writebfCurrency}
+% Gibt eine Zähler als Währungsbetrag mit fetter Zahl aus.
+%    \begin{macrocode} 
+\newcommand*\writebfCurrency[1]{{\fontseries{b}
+  \selectfont\writeCurrency{#1}}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@readNum}
+% Liest eine Zahl der Form [Zahl]*{,[Zahl]{[Zahl]}} in
+% \verb|\@RCHtmp| ein
+%    \begin{macrocode} 
+\newcommand*\@readNum[1]{\@RCHtmp=0\@readA#1\relax}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@readA}
+% Liest eine Zahl ein. Falls Nachkommastellen vorhanden sind,
+% werden diese ebenfalls eingelesen. Nachkommastellen werden
+% mit , oder . abgetrennt. Tritt eines dieser Zeichen auf, dann müssen
+% auch Nachkommastellen kommen, sonst wird ein Fehler ausgegeben.
+%    \begin{macrocode} 
+\newcommand*\@readA[1]{%
+  \expandafter\if#1\relax\@tempcnta0\@readC\relax
+  \else\expandafter\if#1.\@tempcnta0
+  \expandafter\expandafter\expandafter\expandafter
+  \expandafter\expandafter\expandafter\@readB
+  \else\expandafter\if#1,\@tempcnta0
+  \expandafter\expandafter\expandafter\expandafter
+  \expandafter\expandafter\expandafter\@readB
+  \else\multiply\@RCHtmp10\advance\@RCHtmp#1
+  \expandafter\expandafter\expandafter\expandafter
+  \expandafter\expandafter\expandafter\@readA
+  \fi\fi\fi
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@readB}
+% Liest zwei Nachkommastellen ein. Bei 0 oder mehr als 2 Stellen 
+% wird eine Fehlermeldung erzeugt.
+%    \begin{macrocode} 
+\newcommand*\@readB[1]{%
+  \expandafter\if#1\relax\relax
+     \ifnum \@tempcnta > 2
+       \@RCHtmp0\PackageError{rechnung}{mehr als zwei
+       Nachkommastellen gefunden}
+     \else
+       \ifnum \@tempcnta = 2
+       \else
+         \ifnum \@tempcnta > 0		
+	   \advance\@tempcnta1
+           \multiply\@RCHtmp10
+	   \@readB\relax
+         \else
+           \multiply\@RCHtmp100\PackageError{rechnung}{keine
+           Nachkommastellen gefunden}
+         \fi
+       \fi
+    \fi
+  \else
+     \advance\@tempcnta1
+     \multiply\@RCHtmp10
+     \advance\@RCHtmp#1\expandafter\@readB
+  \fi}
+%    \end{macrocode}
+%  \end{macro}
+
+%  \begin{macro}{\@readC}
+% Liest zwei Nachkommastellen ein. Wenn weniger vorhanden sind, dann
+% werden Nullen angenommen. Sind mehr als zwei Nachkommastellen vorhanden,
+% erfolgt eine Fehlermeldung!
+%    \begin{macrocode} 
+\newcommand*\@readC[1]{%
+  \expandafter
+  \if#1\relax\relax
+     \ifnum \@tempcnta > 2
+       \@RCHtmp0\PackageError{rechnung}{mehr als zwei
+       Nachkommastellen gefunden}
+     \fi
+     \ifnum \@tempcnta < 2
+	 \advance\@tempcnta1
+         \multiply\@RCHtmp10
+	 \@readC\relax
+     \fi
+  \else
+     \advance\@tempcnta1
+     \multiply\@RCHtmp10
+     \advance\@RCHtmp#1\expandafter\@readC
+  \fi}
+%    \end{macrocode}
+%  \end{macro}
+%
+% \subsection{Rechnungsabschlußmacros}
+%
+%  \begin{macro}{\writefoot}
+%  Gibt Fußnote mit reduziertem MwSt.Satz aus.
+% \begin{macrocode}
+\newcommand*{\writefoot}[0]{
+  \if@RCHerm
+    \nointerlineskip
+    \vskip0.5ex
+    \hbox to \textwidth{
+      \hfill\footnotesize\strut
+      $^*$ Artikel mit \@RCHstsii\% Mehrwertsteuer}
+  \fi}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHsline}
+% Erzeugt eine Zeile für Summe, Mehrwertsteuer, \dots
+%    \begin{macrocode} 
+\newcommand*\@RCHsline[2]{%
+  \goodbreak\nointerlineskip
+  \vbox{\hrule
+    \hbox to\textwidth{%
+      \strut\lsep #1\hfil
+      \sep
+      \hbox to \@RCHGesamtWidth{\hfil#2}%
+      \rsep}%
+    \hrule\vskip-0.4pt}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHohne}
+% Beendet eine Tabelle ohne Angabe von Mehrwertsteuer
+%    \begin{macrocode} 
+\newcommand*\@RCHohne{
+  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHnetto}
+% Beendet eine Tabelle mit Nettopreisen und Mehrwertsteuer.
+%    \begin{macrocode} 
+\newcommand*\@RCHnetto{
+  \@RCHsline{Nettosumme}{\writeCurrency\@RCHsum}%
+%    \end{macrocode}
+% \[\left\lfloor\frac{\hbox{Nettosumme}\cdot\hbox{Steuersatz}+50}{100}\right\rfloor\]
+%    \begin{macrocode} 
+  \multiply\@RCHmwsti\@RCHstsi
+  \advance\@RCHmwsti50\divide\@RCHmwsti100
+  \multiply\@RCHmwstii\@RCHstsii
+  \advance\@RCHmwstii50\divide\@RCHmwstii100
+  \@RCHmwst\@RCHmwsti\advance\@RCHmwst\@RCHmwstii
+  \if@RCHerm
+    \@RCHsline{zzgl. \@RCHstsii\% MwSt.}{\writeCurrency\@RCHmwstii}%
+  \fi
+  \@RCHsline{zzgl. \@RCHstsi\% MwSt.}{\writeCurrency\@RCHmwsti}%
+  \advance\@RCHsum\@RCHmwst
+  \hrule
+  \vskip\doublerulesep\vskip0.4pt
+  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}%
+  \writefoot
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHkeineUST}
+% Beendet eine Tabelle mit den Nettopreisen und gibt
+% an, dass die Mehrwertsteuer nach \S19 UStG nicht
+% ausweisbar ist.
+%    \begin{macrocode}
+\newcommand*\@RCHkeineUST{
+  \@RCHsline{Nettosumme}{\writeCurrency\@RCHsum}%
+  \@RCHsline{Umsatzsteuer (MwSt. nicht ausweisbar nach \S19 UStG)}{\writeCurrency\@RCHustsi}
+  \hrule
+  \vskip\doublerulesep\vskip0.4pt
+  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}%
+  \writefoot
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHbrutto}
+% Beendet eine Tabelle mit Bruttopreisen und gibt die 
+% enthaltene Mehrwertsteuer an.
+%    \begin{macrocode} 
+\newcommand*\@RCHbrutto{
+  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}
+%    \end{macrocode}
+% \[ \left\lfloor\frac{2\cdot\mbox{Bruttosumme}\cdot\mbox{Steuersatz}+
+%     100+\mbox{Steuersatz}}{2(100+\mbox{Steuersatz})}\right\rfloor \]
+%    \begin{macrocode} 
+  \multiply\@RCHmwsti\@RCHstsi\multiply\@RCHmwsti2%
+  \@tempcnta100\advance\@tempcnta\@RCHstsi
+  \advance\@RCHmwsti\@tempcnta
+  \multiply\@tempcnta2%
+  \divide\@RCHmwsti\@tempcnta
+
+  \multiply\@RCHmwstii\@RCHstsii\multiply\@RCHmwstii2%
+  \@tempcnta100\advance\@tempcnta\@RCHstsii
+  \advance\@RCHmwstii\@tempcnta
+  \multiply\@tempcnta2%
+  \divide\@RCHmwstii\@tempcnta
+
+  \@RCHmwst\@RCHmwsti\advance\@RCHmwst\@RCHmwstii
+  \if@RCHerm
+    \@RCHsline{inkl. erm. MwSt. \@RCHstsii\%}
+    {\writeCurrency\@RCHmwstii}%
+  \fi
+  \@RCHsline{inkl. \@RCHstsi\% MwSt}{\writeCurrency\@RCHmwsti}%
+  \writefoot
+}
+%    \end{macrocode}
+%  \end{macro}
+
+%  \begin{macro}{\sep}
+% Gibt eine vertikale Trennlinie innerhalb einer Zeile aus
+%    \begin{macrocode} 
+\newcommand*{\sep}[0]{\hskip\tabcolsep\vrule\hskip\tabcolsep}
+\newcommand*{\rsep}[0]{\hskip\tabcolsep\vrule}
+\newcommand*{\lsep}[0]{\vrule\hskip\tabcolsep}
+%    \end{macrocode}
+%  \end{macro}
+
+
+%  \begin{macro}{\@RCHlineX}
+% Erzeugt eine Position in einer Rechnung mit Artikelnummern
+% Param: Position, Anzahl, Art.-Nr.,Artikel, Einzelpreis, Gesamtpreis 
+%    \begin{macrocode} 
+\newcommand*\@RCHlineX[6]{{
+\goodbreak\nointerlineskip
+    \vbox{
+      \if@RCHhor
+	\hrule
+      \else
+        \if@RCHfirst
+          \hrule
+        \fi
+      \fi
+      \hbox to\textwidth{%
+	\lsep%
+        \if@RCHpos%
+           \hbox to\@RCHPosWidth{\hfil #1\strut}%
+           \sep
+        \fi% Pos-Spalte
+        \hbox to\@RCHAnzWidth{\hfil #2\strut}\sep% Anzahl-Spalte
+        \if@RCHartnum%
+          \hbox to\@RCHArtnumWidth{\hfil #3\strut}%
+          \sep%
+        \fi% Art-Num-Spalte
+        \vtop{\normalbaselines%
+           \noindent\rightskip=0pt plus1cm%
+           \hsize\@RCHwdt%
+           \linewidth\hsize#4\null\strut\par}%
+        \hfil\sep%Beschreibung
+        \hbox to\@RCHEinzelWidth{\hfil #5\strut}\sep% Einzelpreis
+        \hbox to\@RCHGesamtWidth{\hfil #6\strut}\rsep% Gesamtpreis
+      }%hbox
+     }%vbox
+}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@ArtikelX}
+% Berechnet für einen Artikel den Preis aus Anzahl und Einzelpreis,
+% erhöht die Gesamtsumme und die entsprechende Mehrwertsteuersumme
+% und gibt die Position aus.
+% Param: [ermaessigt,] Anzahl, (X: Art.-Nr.,) Artikel, Einzelpreis 
+%    \begin{macrocode} 
+\newcommand*\@Artikel[4][X]{\@ArtikelX[#1]{#2}{}{#3}{#4}}
+\newcommand*\@ArtikelX[5][X]{
+  \initRechnung
+  \advance\@RCHcnt1%
+  \@readNum{#5}
+  \@RCHtmptmp=\@RCHtmp%
+  \@readNum{#2}\multiply\@RCHtmp\@RCHtmptmp
+  \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen. 
+  \@lineBaseX[#1]{\the\@RCHcnt}{#2}{#3}{#4}{#5}
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@VersandkostenX}
+% Erzeugt eine Zeile für die Versandkosten, die keinen Einzelpreis und 
+% und keine Positionsnummer bekommt (mit Artikelnummer).
+%    \begin{macrocode} 
+\newcommand*\@Versandkosten[2][X]{\@VersandkostenX[#1]{#2}}
+\newcommand*\@VersandkostenX[2][X]{
+  \initRechnung
+  \@readNum{#2}
+  \@lineBaseX[#1]{\null}{1}{\null}{Versandkosten}{#2}
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@lineBaseX}
+% Gemeinsamer Code für Artikel- und Versandkostenzeilen
+%    \begin{macrocode}
+\newcommand*\@lineBaseX[6][X]{
+  \global\advance\@RCHsum\@RCHtmp
+  \@RCHlineX{#2}{#3}{#4}{#5}{#6}{\writeCurrency\@RCHtmp
+    \expandafter\ifx#1X\else\rlap{$^*$}\fi}
+  \expandafter
+  \ifx#1X
+    \advance\@RCHmwsti\@RCHtmp
+  \else
+    \advance\@RCHmwstii\@RCHtmp\global\@RCHermtrue
+  \fi
+  \global\@RCHfirstfalse  %horizontale Linien nur beim ersten Artikel
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\Rechnung*}
+% Beginnt eine Rechnung oder Bestellung ohne/mit Artikelnummer
+%    \begin{macrocode} 
+\newenvironment*{Rechnung}[1][X]{\RechnungStart{#1}{}}{\RechnungEnde}
+\newenvironment*{Rechnung*}[1][X]{\RechnungStart{#1}{X}}{\RechnungEnde}
+\newenvironment*{Bestellung}[0]{\RechnungStart{X}{}}{\RechnungEnde}
+\newenvironment*{Bestellung*}[0]{\RechnungStart{X}{X}}{\RechnungEnde}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\RechnungStart}
+% Kopf einer Rechnungstabelle
+%    \begin{macrocode}
+\newcommand*{\RechnungStart}[2]{
+  \@RCHinitfalse
+  \@RCHermfalse
+  \@RCHmwsti0
+  \@RCHmwstii0
+  \def\@RCHtype{#1}%
+%    \end{macrocode}
+% Berechne die Breite der Artikelspalte.\\
+% $=\verb|\textwidth|-8\verb|\tabcolsep|-5*0.4\hbox{pt}-
+% \sum\hbox{Spaltenbreite}$
+%    \begin{macrocode}
+  \@RCHcnt0
+  \@RCHsum0
+  \@RCHwdt\textwidth
+  \advance\@RCHwdt-\@RCHAnzWidth    % Breite der Spalte Anz
+  \advance\@RCHwdt-\@RCHEinzelWidth% Breite der Spalte EPreis
+  \advance\@RCHwdt-\@RCHGesamtWidth % Breite der Spalte GPreis
+  \advance\@RCHwdt-2.0pt        % Breite der Spaltentrenner
+  \advance\@RCHwdt-8\tabcolsep  % Breite des Abstands zu
+                                % den Spaltentrennern
+
+  \global\@RCHfirsttrue
+  \global\@RCHpostrue
+  \global\@RCHhortrue
+%    \end{macrocode}
+% Param 2: Mit Artikelnummern?
+%    \begin{macrocode} 
+\ifx#2X
+  \global\@RCHartnumtrue
+  \let\Artikel\@ArtikelX
+  \let\Posten\@ArtikelX
+  \let\Versandkosten\@VersandkostenX
+\else
+  \global\@RCHartnumfalse
+  \let\Artikel\@Artikel
+  \let\Posten\@Artikel
+  \let\Versandkosten\@Versandkosten
+\fi
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\initRechnung}
+% Kurze Routine, um Kopfzeile auszugeben, nachdem diverse
+% Initialisierungen vorgenommen wurden. Das ist noetig, da
+% einige Einstellungen innerhalb der Umgebung veraendert werden
+% duerfen.
+%    \begin{macrocode} 
+\newcommand*{\initRechnung}[0]
+{
+  \if@RCHinit
+  \else
+    % Breite wegen Anzeige der Positionsnummern korrigieren
+    %    \begin{macrocode} 
+    \if@RCHpos
+      \advance\@RCHwdt-\@RCHPosWidth
+      \advance\@RCHwdt-0.4pt
+      \advance\@RCHwdt-2\tabcolsep
+    \fi
+    %    \end{macrocode}
+    % Breite wegen Anzeige der Artikelnummern korrigieren
+    %    \begin{macrocode} 
+    \if@RCHartnum
+      \advance\@RCHwdt-\@RCHArtnumWidth
+      \advance\@RCHwdt-0.4pt
+      \advance\@RCHwdt-2\tabcolsep
+    \fi
+    %    \end{macrocode}
+    % bißchen Platz über der Rechnung
+    %    \begin{macrocode} 
+    \vskip\abovedisplayskip
+    %    \end{macrocode}
+    % Titelzeile ausgeben
+    %    \begin{macrocode} 
+    \@RCHlineX{\scriptsize Pos.\hfill}%
+              {\scriptsize Anzahl\hfill}%
+              {\scriptsize Art.\,Nr.\hfill}%
+              {\scriptsize Beschreibung\hfill}%
+              {\scriptsize Einzelpreis\hfill}%
+              {\scriptsize Gesamtpreis\hfill}
+    \@RCHinittrue
+  \fi
+}
+%    \end{macrocode}
+%  \end{macro}
+
+%  \begin{macro}{\RechnungEnde}
+% Footer einer Rechnung
+%    \begin{macrocode}
+\newcommand*{\RechnungEnde}[0]
+{
+  \hrule
+  \vskip\doublerulesep\vskip0.4pt
+       \expandafter\if\@RCHtype X \@RCHohne
+  \else\expandafter\if\@RCHtype N \@RCHnetto
+  \else\expandafter\if\@RCHtype B \@RCHbrutto
+  \else\expandafter\if\@RCHtype K \@RCHkeineUST
+  \else\PackageError{rechnung}{Unbekannter Rechnungstyp `\@RCHtype'}%
+  \fi\fi\fi
+  \global\@RCHsum\@RCHsum\global\@RCHmwst\@RCHmwst
+%    \end{macrocode}
+% bißchen Platz unter der Rechnung
+%    \begin{macrocode} 
+  \vskip\belowdisplayskip
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+% \Finale
+\endinput

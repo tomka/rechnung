@@ -1,0 +1,54 @@
+% Kurzreferenz rechnung.sty V3.20
+% ===============================
+%
+% Rechnung/Bestellung beginnen
+% ----------------------------
+% Im Header: \usepackage{rechnung} (evtl. Pfad angaben, wo rechnung.sty liegt.
+%
+% \begin{Rechnung} ... \end{Rechnung}
+% mit Bruttopreisen inkl. MwSt.: \begin{Rechnung}[B] \begin{Bestellung}[B]
+% mit Nettopreisen  zzgl. MwSt.: \begin{Rechnung}[N] \begin{Bestellung}[N]
+% mit ohno MwSt. und Hinweis t.: \begin{Rechnung}[K] \begin{Bestellung}[K]
+% ohne MwSt.                   : \begin{Rechnung}    \begin{Bestellung}
+% \begin{Rechnung*} bzw. \begin{Bestellung*} generiert Rechnung/Bestellung
+% mit Artikelnummern, muß dann bei \Artikel bzw. \Posten angegeben werden
+% (zweiter nicht-optionaler Parameter)
+%
+% Positionsnummern ein/ausschalten (default: ein)
+% -----------------------------------------------
+% \PositionEin
+% \PositionAus
+%
+% Trennlinien zwischen den Artikeln ein/ausschalten (default: ein)
+% ----------------------------------------------------------------
+% \TrennerEin
+% \TrennerAus
+%
+% Währung ändern (default: Euro)
+% ----------------------------
+% \DMark
+% \Euro
+% \Waehrung{Währungszeichen}
+%
+% Setzen der Steuersätze (voller, ermäßigter), (default: 19% / 7%)
+% ---------------------------------------------------------------
+% \Steuersatz{19}{7}
+%
+% Versandkosten einfügen
+% ----------------------
+% voller Steuersatz:     \Versandkosten{5,90}
+% ermäßigter Steuersatz: \Versandkosten[e]{5,90}
+%
+% Posten/Artikel eintragen: [e] = ermäßigter Steuersatz
+% -----------------------------------------------------
+% \Artikel[e]{Anzahl}{Text}{Einzelpreis}
+% \Posten{Anzahl}{Text}{Einzelpreis, Trennzeichen ist Komma}
+% \Artikel{Anzahl}{Text}{Einzelpreis}
+% \Artikel{1}{h Kabelverlegung}{60,00} 
+% \Artikel{1}{ArtikelNummer}{h Kabelverlegung}{60,00}
+%
+% Nachkommastellen müssen immer zweistellig sein, sonst wird nicht richtig
+% gerechnet!
+%
+% Nach Verwendung der Umgebung lassen sich im Text noch \Mehrwertsteuer
+% und \Gesamtsumme verwenden.

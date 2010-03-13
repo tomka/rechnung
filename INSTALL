@@ -1,0 +1,21 @@
+
+Als erstes das Paket auspacken. Das haben sie sehr warscheinlich schon
+geschafft wenn Sie diese Installationsanleitung lesen. Das Paket enth‰lt:
+
+INSTALL		Diese Anleitung
+rechnung.ins
+rechnung.dtx
+
+Zuerst rechnung.sty erzeugen:
+
+  latex rechnung.ins
+
+Dann die Dokumentation:
+
+  latex rechnung.dtx
+
+rechnung.sty muﬂ in den Pfad von LaTeX 2e z.B. nach 
+
+.../tex/latex/bmg/
+
+Dieser Pfad kann aber je nach System variieren.

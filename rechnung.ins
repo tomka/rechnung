@@ -1,0 +1,31 @@
+%% Copyright 2010 T Kazimiers
+%%
+%% This file is part of the `rechnung' packet
+%%
+
+% This file requires docstrip version 2.4 available from
+% ftp.dante.de tex-archive/macros/latex/unpacked/docstrip.tex
+\input docstrip
+\keepsilent
+
+\Msg{Generating style file rechnung.sty for the rechnung package:}
+\generateFile{rechnung.sty}{f}{\from{rechnung.dtx}{package}}
+\Msg{Generating driver file for manual rechnung.drv:}
+\generateFile{rechnungman.drv}{f}{\from{rechnung.dtx}{driver,manual}}
+\Msg{Generating driver file for documentation rechnung.drv:}
+\generateFile{rechnung.drv}{f}{\from{rechnung.dtx}{driver}}
+
+
+\Msg{***********************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the file}
+\Msg{* rechnung.sty into a directory searched by TeX:}
+\Msg{*}
+\Msg{* Optionally you caan copy the file rechnung.dtx into a}
+\Msg{* directory searched by TeX, so that users can print} 
+\Msg{* a copy of the documentation.}
+\Msg{*}
+\Msg{* Happy TeXing}
+\Msg{***********************************************************}
+
+\endbatchfile
