@@ -9,6 +9,9 @@
 % - Fehler behoben der eine MwSt von 0% nicht möglich machte
 % - Euro als Standardwährung gesetzt, für DM muss "\DMark" gesetzt
 %   werden
+% - Macro hinzugefügt um einen Prefix für jedes Element eines Artikels
+%   zu setzen. Damit kann beispielsweise die Schriftgröße der Artikel
+%   zeilen angepasst werden.
 % Änderungen V3.10 (2001-04-01, Ulrich Sibiller <uli42@web.de>)
 % - Statt "Artikel" steht jetzt "Beschreibung" in der Titelzeile
 %   Eines Tages soll der User das einstellen können
@@ -99,7 +102,9 @@
 % \changes{v3.30} {2010/03/05}
 %    {Fehler behoben der eine MwSt von 0\% nicht m<F6>glich machte,
 %    Euro als Standardw<E4>hrung gesetzt, f<FC>r DM muss "\DMark" gesetzt
-%    werden; Mehrwertsteuersatz korrigiert (von 16/7 auf 19/7
+%    werden; Mehrwertsteuersatz korrigiert (von 16/7 auf 19/7; Mittels
+%    einem Prefixmakro kann allen Tabellenelementen etwas vorangsteltt
+%    werden
 %    <tom@voodoo-arts.net>}
 %
 % \DeleteShortVerb{\|}
@@ -460,6 +465,13 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\@ArtikelPrefix}
+% aktueller Artikelprefix. Voreingestellt ist dieser leer.
+%    \begin{macrocode}
+\newcommand*\@ArtikelPrefix{}
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\@waehrung}
 % aktuelle Währung. Voreingestellt ist Euro.
 %    \begin{macrocode}
@@ -496,6 +508,14 @@
 %    \begin{macrocode}
 \newcommand*\TrennerEin[0]{\if@RCHinit\else\global\@RCHhortrue\fi}
 \newcommand*\TrennerAus[0]{\if@RCHinit\else\global\@RCHhorfalse\fi}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\ArtikelPrefix}
+% Setzt einen belibigen Prefix für das Setzen der Artikelbeschreibung. Damit
+% kann beispielsweise die Schriftgröße angepasst werden.
+%    \begin{macrocode}
+\newcommand*\ArtikelPrefix[1]{\def\@ArtikelPrefix{#1}}
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -844,7 +864,7 @@
 %    \begin{macrocode}
 \newcommand*\@lineBaseX[6][X]{
   \global\advance\@RCHsum\@RCHtmp
-  \@RCHlineX{#2}{#3}{#4}{#5}{#6}{\writeCurrency\@RCHtmp
+  \@RCHlineX{\@ArtikelPrefix#2}{\@ArtikelPrefix#3}{\@ArtikelPrefix#4}{\@ArtikelPrefix#5}{\@ArtikelPrefix#6}{\@ArtikelPrefix\writeCurrency\@RCHtmp
     \expandafter\ifx#1X\else\rlap{$^*$}\fi}
   \expandafter
   \ifx#1X
