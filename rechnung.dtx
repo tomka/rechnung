@@ -3,6 +3,7 @@
 %% berberic@fmi.uni-passau.de
 
 % Änderungen V3.20 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Mehrwertsteuersatz angepasst. von 16/7 auf 19/7
 % - Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
 %   hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
 % - Fehler behoben der eine MwSt von 0% nicht möglich machte
@@ -91,14 +92,15 @@
 % \changes{v3.01}{2001/04/01}
 %    {Statt Artikel wird Beschreibung in der Titelzeile verwendet, Anzahl kann
 %    muss keine ganze Zahl mehr sein<uli42@web.de>}
-% \changes{v3.02} {2009/12/08}
+% \changes{v3.20} {2009/12/08}
 %    {Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
 %    hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
 %    <tom@voodoo-arts.net>}
-% \changes{v3.03} {2010/03/05}
-%    {Fehler behoben der eine MwSt von 0\% nicht möglich machte,
-%    Euro als Standardwährung gesetzt, für DM muss "\DMark" gesetzt
-%    werden <tom@voodoo-arts.net>}
+% \changes{v3.30} {2010/03/05}
+%    {Fehler behoben der eine MwSt von 0\% nicht m<F6>glich machte,
+%    Euro als Standardw<E4>hrung gesetzt, f<FC>r DM muss "\DMark" gesetzt
+%    werden; Mehrwertsteuersatz korrigiert (von 16/7 auf 19/7
+%    <tom@voodoo-arts.net>}
 %
 % \DeleteShortVerb{\|}
 % \MakeShortVerb{\"}
@@ -202,8 +204,8 @@
 % \DescribeMacro{\Steuersatz}Die Steuersätze lassen sich mit
 % "\Steuersatz{"\textlangle Steuersatz 1\textrangle"}{"
 %  \textlangle Steuersatz 2\textrangle"}" festlegen. Standardmäßig ist
-% Steuersatz 1 auf "16" und Steuersatz 2 auf "7" eingestellt. Dies entspricht
-% dem Mehrwertsteuersatz von 16\% und dem ermäßigtem Mehrwertsteuersatz von
+% Steuersatz 1 auf "19" und Steuersatz 2 auf "7" eingestellt. Dies entspricht
+% dem Mehrwertsteuersatz von 19\% und dem ermäßigtem Mehrwertsteuersatz von
 % 7\%. 
 %
 % \DescribeMacro{\Gesamtsumme}\DescribeMacro{\Mehrwertsteuer}
@@ -440,7 +442,7 @@
 %  \begin{macro}{\@RCHstsi}
 % normalen Mehrwertsteuersatz
 %    \begin{macrocode}
-\newcommand*\@RCHstsi{16}
+\newcommand*\@RCHstsi{19}
 %    \end{macrocode}
 %  \end{macro}
 %
