@@ -2,6 +2,8 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.40 (2015-03-11, Sven Schoradt <schoradt@netztierpfleger.de>)
+% - Abschlagszahlungen in netto-Rechnungen eingebaut
 % Änderungen V3.30 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Fehler behoben der eine MwSt von 0% nicht möglich machte
 % - Euro als Standardwährung gesetzt, für DM muss "\DMark" gesetzt
@@ -383,7 +385,8 @@
 %    \begin{macrocode}
 \newcount\@RCHcnt \newcount\@RCHsum \newcount\@RCHtmp
 \newcount\@RCHmwst \newcount\@RCHmwsti \newcount\@RCHmwstii
-\newcount\@RCHtmptmp
+\newcount\@RCHtmptmp \newcount\@RCHabschln \newcount\@RCHabschlb
+\newcount\@RCHabschlmwst
 %    \end{macrocode}
 %
 % Die Dimensionen der Spalten
@@ -404,6 +407,13 @@
 % Ein Schalter der das Auftauchen von ermäßigtem MwSt-Satz anzeigt.
 %    \begin{macrocode}
 \newif\if@RCHerm
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\@RCHabschl}
+% Ein Schalter der das Anzeigen der Abschlagsberechnung beeinflusst
+%    \begin{macrocode}
+\newif\if@RCHabschl
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -731,6 +741,24 @@
   \hrule
   \vskip\doublerulesep\vskip0.4pt
   \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}%
+  \if@RCHabschl
+    \vskip\doublerulesep\vskip10pt
+    \advance\@RCHabschlb\@RCHabschln
+    \advance\@RCHabschlmwst\@RCHabschln
+    \multiply\@RCHabschlmwst\@RCHstsi
+    \advance\@RCHmwsti50
+    \divide\@RCHabschlmwst100
+    \advance\@RCHabschlb\@RCHabschlmwst
+    \advance\@RCHmwst-\@RCHabschlmwst
+    \@RCHsline{Abschlagszahlung }{\writeCurrency\@RCHabschln}%
+    \@RCHsline{zzgl. \@RCHstsi\% MwSt. }{\writeCurrency\@RCHabschlmwst}%
+    \vskip\doublerulesep\vskip0.4pt
+    \@RCHsline{bereits gezahlt }{\writebfCurrency\@RCHabschlb}%
+    \advance\@RCHsum-\@RCHabschlb
+    \vskip\doublerulesep\vskip10pt
+    \@RCHsline{noch zu zahlen }{\writebfCurrency\@RCHsum}%
+  \fi
+  \hrule
   \writefoot
 }
 %    \end{macrocode}
@@ -865,6 +893,19 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\@AbschlagszahlungX}
+% Erzeugt eine Abschlagszahlung
+%    \begin{macrocode} 
+\newcommand*\@Abschlagszahlung[2][X]{\@AbschlagszahlungX[#1]{#2}}
+\newcommand*\@AbschlagszahlungX[2][X]{
+  \initRechnung
+  \@readNum{#2}
+  \global\@RCHabschltrue
+  \global\advance\@RCHabschln\@RCHtmp
+}
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\@lineBaseX}
 % Gemeinsamer Code für Artikel- und Versandkostenzeilen
 %    \begin{macrocode}
@@ -899,8 +940,12 @@
 \newcommand*{\RechnungStart}[2]{
   \@RCHinitfalse
   \@RCHermfalse
+  \@RCHabschlfalse
   \@RCHmwsti0
   \@RCHmwstii0
+  \@RCHabschln0
+  \@RCHabschlb0
+  \@RCHabschlmwst0
   \def\@RCHtype{#1}%
 %    \end{macrocode}
 % Berechne die Breite der Artikelspalte.\\
@@ -928,11 +973,13 @@
   \let\Artikel\@ArtikelX
   \let\Posten\@ArtikelX
   \let\Versandkosten\@VersandkostenX
+  \let\Abschlagszahlung\@AbschlagszahlungX
 \else
   \global\@RCHartnumfalse
   \let\Artikel\@Artikel
   \let\Posten\@Artikel
   \let\Versandkosten\@Versandkosten
+  \let\Abschlagszahlung\@Abschlagszahlung
 \fi
 }
 %    \end{macrocode}
