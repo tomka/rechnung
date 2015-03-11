@@ -880,6 +880,23 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\@ArtikelX}
+% Berechnet für einen Artikel den Preis aus Anzahl und Einzelpreis,
+% erhöht die Gesamtsumme und die entsprechende Mehrwertsteuersumme
+% und gibt die Position aus.
+% Param: [ermaessigt,] Anzahl, (X: Art.-Nr.,) Artikel, Einzelpreis 
+%    \begin{macrocode} 
+\newcommand*\@Gutschrift[3][X]{\@GutschriftX[#1]{#2}{#3}}
+\newcommand*\@GutschriftX[3][X]{
+  \initRechnung
+  \advance\@RCHcnt1%
+  \@readNum{#3}
+  \multiply\@RCHtmp-1
+  \@lineBaseX[#1]{\null}{\null}{\null}{#2}{#3}
+}
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\@VersandkostenX}
 % Erzeugt eine Zeile für die Versandkosten, die keinen Einzelpreis und 
 % und keine Positionsnummer bekommt (mit Artikelnummer).
@@ -974,12 +991,14 @@
   \let\Posten\@ArtikelX
   \let\Versandkosten\@VersandkostenX
   \let\Abschlagszahlung\@AbschlagszahlungX
+  \let\Gutschrift\@GutschriftX
 \else
   \global\@RCHartnumfalse
   \let\Artikel\@Artikel
   \let\Posten\@Artikel
   \let\Versandkosten\@Versandkosten
   \let\Abschlagszahlung\@Abschlagszahlung
+  \let\Gutschrift\@Gutschrift
 \fi
 }
 %    \end{macrocode}
