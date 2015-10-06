@@ -2,7 +2,14 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
-% Änderungen V3.40 (2015-03-11, Sven Schoradt <schoradt@netztierpfleger.de>)
+% Änderungen V3.50 (2015-10-06, Lennart Hensler <lennarthensler@aol.com>)
+% - Breite der Anzahl-Spalte um 0.3em (auf 3.2em) vergrößert
+% - Macro hinzugefügt, um der Anzahl eine Einheit zu geben. Das kann zum
+%   Beispiel verwendet werden, um die Anzahl als Stunden auszuweisen.
+%   Dabei sollte beachtet werden, dass sich die Breite der Anzahl-Spalte
+%   NICHT automatisch vergrößert und dass die Einheit für ALLE NACHFOLGENDEN
+%   Artikel/Posten verwendet wird
+% Änderungen V3.40 (2015-11-03, Sven Schoradt <schoradt@netztierpfleger.de>)
 % - Abschlagszahlungen in netto-Rechnungen eingebaut
 % Änderungen V3.30 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Fehler behoben der eine MwSt von 0% nicht möglich machte
@@ -48,7 +55,7 @@
 %<driver> \ProvidesFile{rechnung.drv}
 % \fi
 %         \ProvidesFile{rechnung.dtx}
-          [2010/03/05 v3.30 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers]
+          [2010/03/05 v3.50 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers, Sven Schoradt, Lennart Hensler]
 %
 % \iffalse
 %<*driver>
@@ -109,6 +116,17 @@
 %    einem Prefixmakro kann allen Tabellenelementen etwas vorangsteltt
 %    werden
 %    <tom@voodoo-arts.net>}
+% \changes{v3.40} {2015/11/03}
+%    {Abschlagszahlungen in netto-Rechnungen eingebaut
+%    <schoradt@netztierpfleger.de>}
+% \changes{v3.50} {2015/10/06}
+%    {Breite der Anzahl-Spalte um 0.3em (auf 3.2em) vergrößert;
+%     Macro hinzugefügt, um der Anzahl eine Einheit zu geben. Das kann zum
+%     Beispiel verwendet werden, um die Anzahl als Stunden auszuweisen.
+%     Dabei sollte beachtet werden, dass sich die Breite der Anzahl-Spalte
+%     NICHT automatisch vergrößert und dass die Einheit für ALLE NACHFOLGENDEN
+%     Artikel/Posten verwendet wird
+%    <LennartHensler@aol.com>}
 %
 % \DeleteShortVerb{\|}
 % \MakeShortVerb{\"}
@@ -242,7 +260,15 @@
 % Die Makros können beliebig oft
 % auftreten, es wird jedoch nur das letzte vor dem ersten Artikel beachtet.
 % Sobald ein Artikel angegeben wurde, kann die Einstellung nicht mehr
-% verändert werden..
+% verändert werden.
+%
+% \DescribeMacro{\AnzahlEinheit}Die Einheit aller nachfolgender Artikel/Posten
+% lassen sich mit "\AnzahlEinheit{"\textlangle Einheit\textrangle"}" festlegen.
+% Die Einheit wird von einem Leerzeichen getrennt hinter die Anzahl eingefügt.
+% Standardmäßig ist die keine Einheit gewählt.
+% Das Makro kann beliebig oft auftreten. Dabei beeinflusst die jeweile Definition
+% immer nur die nachfolgenden Artikel/Posten. Dies kann verwendet werden, um
+% unterschiedlichen Artikeln/Posten unterschiedliche Einheiten zu geben.
 %
 % \section{Beispiele}
 %
@@ -397,8 +423,8 @@
 \newdimen\@RCHArtWidth
 \newdimen\@RCHEinzelWidth
 \newdimen\@RCHGesamtWidth
-\@RCHPosWidth=1.5em%
-\@RCHAnzWidth=2.9em%
+\@RCHPosWidth=1.3em%
+\@RCHAnzWidth=3.2em%
 \@RCHArtnumWidth=5em%
 \@RCHEinzelWidth=4.8em%
 \@RCHGesamtWidth=6.1em%
@@ -488,6 +514,13 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\@AnzahlSuffix}
+% aktueller Artikelsuffix. Voreingestellt ist dieser leer.
+%    \begin{macrocode}
+\newcommand*\@AnzahlSuffix{}
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\@waehrung}
 % aktuelle Währung. Voreingestellt ist Euro.
 %    \begin{macrocode}
@@ -532,6 +565,13 @@
 % kann beispielsweise die Schriftgröße angepasst werden.
 %    \begin{macrocode}
 \newcommand*\ArtikelPrefix[1]{\def\@ArtikelPrefix{#1}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\AnzahlEinheit}
+% Setzt einen belibigen Suffix für die Anzahl der Artikel.
+%    \begin{macrocode}
+\newcommand*\AnzahlEinheit[1]{\def\@AnzahlSuffix{\,#1}}
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -875,16 +915,14 @@
   \@RCHtmptmp=\@RCHtmp%
   \@readNum{#2}\multiply\@RCHtmp\@RCHtmptmp
   \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen. 
-  \@lineBaseX[#1]{\the\@RCHcnt}{#2}{#3}{#4}{#5}
+  \@lineBaseX[#1]{\the\@RCHcnt}{#2\@AnzahlSuffix}{#3}{#4}{#5}
 }
 %    \end{macrocode}
-%  \end{macro}
+%  \end{macro}%
 %
-%  \begin{macro}{\@ArtikelX}
-% Berechnet für einen Artikel den Preis aus Anzahl und Einzelpreis,
-% erhöht die Gesamtsumme und die entsprechende Mehrwertsteuersumme
-% und gibt die Position aus.
-% Param: [ermaessigt,] Anzahl, (X: Art.-Nr.,) Artikel, Einzelpreis 
+%  \begin{macro}{\@GutschriftX}
+% Fügt eine Gutschrift hinzu und gibt diese aus.
+% Param: [ermaessigt,] Beschreibung, Betrag 
 %    \begin{macrocode} 
 \newcommand*\@Gutschrift[3][X]{\@GutschriftX[#1]{#2}{#3}}
 \newcommand*\@GutschriftX[3][X]{
@@ -892,7 +930,7 @@
   \advance\@RCHcnt1%
   \@readNum{#3}
   \multiply\@RCHtmp-1
-  \@lineBaseX[#1]{\null}{\null}{\null}{#2}{#3}
+  \@lineBaseX[#1]{\the\@RCHcnt}{\null}{\null}{#2}{-#3}
 }
 %    \end{macrocode}
 %  \end{macro}
