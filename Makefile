@@ -67,9 +67,11 @@ ps: rechnung.ps
 dvi: rechnung.dvi
 
 install: all
+	mkdir -p $(texdir)
 	$(INSTALL_DATA) rechnung.sty $(texdir)
 
 install.doc: all
+	mkdir -p $(docdir)
 	$(INSTALL_DATA) rechnung.dtx $(docdir)
 	$(INSTALL_DATA) rechnung.drv $(docdir)
 	$(INSTALL_DATA) rechnungman.drv $(docdir)
