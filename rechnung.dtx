@@ -915,7 +915,7 @@
   \@RCHtmptmp=\@RCHtmp%
   \@readNum{#2}\multiply\@RCHtmp\@RCHtmptmp
   \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen. 
-  \@lineBaseX[#1]{\the\@RCHcnt}{#2\@AnzahlSuffix}{#3}{#4}{#5}
+  \@lineBaseX[#1]{\the\@RCHcnt}{#2\@AnzahlSuffix}{#3}{#4}{#5\,\@waehrung}
 }
 %    \end{macrocode}
 %  \end{macro}%
@@ -930,7 +930,7 @@
   \advance\@RCHcnt1%
   \@readNum{#3}
   \multiply\@RCHtmp-1
-  \@lineBaseX[#1]{\the\@RCHcnt}{\null}{\null}{#2}{-#3}
+  \@lineBaseX[#1]{\the\@RCHcnt}{\null}{\null}{#2}{\null}
 }
 %    \end{macrocode}
 %  \end{macro}
@@ -943,7 +943,7 @@
 \newcommand*\@VersandkostenX[2][X]{
   \initRechnung
   \@readNum{#2}
-  \@lineBaseX[#1]{\null}{1}{\null}{Versandkosten}{#2}
+  \@lineBaseX[#1]{\null}{1}{\null}{Versandkosten}{#2\,\@waehrung}
 }
 %    \end{macrocode}
 %  \end{macro}
