@@ -2,46 +2,46 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
-% Änderungen V3.50 (2015-10-06, Lennart Hensler <lennarthensler@aol.com>)
-% - Breite der Anzahl-Spalte um 0.3em (auf 3.2em) vergrößert
-% - Macro hinzugefügt, um der Anzahl eine Einheit zu geben. Das kann zum
+% Ã„nderungen V3.50 (2015-10-06, Lennart Hensler <lennarthensler@aol.com>)
+% - Breite der Anzahl-Spalte um 0.3em (auf 3.2em) vergrÃ¶ÃŸert
+% - Macro hinzugefÃ¼gt, um der Anzahl eine Einheit zu geben. Das kann zum
 %   Beispiel verwendet werden, um die Anzahl als Stunden auszuweisen.
 %   Dabei sollte beachtet werden, dass sich die Breite der Anzahl-Spalte
-%   NICHT automatisch vergrößert und dass die Einheit für ALLE NACHFOLGENDEN
+%   NICHT automatisch vergrÃ¶ÃŸert und dass die Einheit fÃ¼r ALLE NACHFOLGENDEN
 %   Artikel/Posten verwendet wird
-% Änderungen V3.40 (2015-11-03, Sven Schoradt <schoradt@netztierpfleger.de>)
+% Ã„nderungen V3.40 (2015-11-03, Sven Schoradt <schoradt@netztierpfleger.de>)
 % - Abschlagszahlungen in netto-Rechnungen eingebaut
-% Änderungen V3.30 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
-% - Fehler behoben der eine MwSt von 0% nicht möglich machte
-% - Euro als Standardwährung gesetzt, für DM muss "\DMark" gesetzt
+% Ã„nderungen V3.30 (2010-03-05, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Fehler behoben der eine MwSt von 0% nicht mÃ¶glich machte
+% - Euro als StandardwÃ¤hrung gesetzt, fÃ¼r DM muss "\DMark" gesetzt
 %   werden
-% - Macro hinzugefügt um einen Prefix für jedes Element eines Artikels
-%   zu setzen. Damit kann beispielsweise die Schriftgröße der Artikel
+% - Macro hinzugefÃ¼gt um einen Prefix fÃ¼r jedes Element eines Artikels
+%   zu setzen. Damit kann beispielsweise die SchriftgrÃ¶ÃŸe der Artikel
 %   zeilen angepasst werden.
-% Änderungen V3.20 (2009-12-08, Tom Kazimiers <tom@voodoo-arts.net>)
+% Ã„nderungen V3.20 (2009-12-08, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Mehrwertsteuersatz angepasst. von 16/7 auf 19/7
-% - Einen Rechnungstyp "K" für "Umsatzsteuer/keine Mehrwertsteuer"
-%   hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
-% Änderungen V3.10 (2001-04-01, Ulrich Sibiller <uli42@web.de>)
+% - Einen Rechnungstyp "K" fÃ¼r "Umsatzsteuer/keine Mehrwertsteuer"
+%   hinzugefÃ¼gt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
+% Ã„nderungen V3.10 (2001-04-01, Ulrich Sibiller <uli42@web.de>)
 % - Statt "Artikel" steht jetzt "Beschreibung" in der Titelzeile
-%   Eines Tages soll der User das einstellen können
-% - Kommazahlen für Anzahl werden jetzt korrekt behandelt. Beträge werden
-%   bei der Ausgabe korrekt gerundet (0,34 * 0,20 -> 0,07; 0,34 * 0,24 = 0,09)    
-% - Daraus resultierend kann man jetzt für Zahlen auch weniger
+%   Eines Tages soll der User das einstellen kÃ¶nnen
+% - Kommazahlen fÃ¼r Anzahl werden jetzt korrekt behandelt. BetrÃ¤ge werden
+%   bei der Ausgabe korrekt gerundet (0,34 * 0,20 -> 0,07; 0,34 * 0,24 = 0,09)
+% - Daraus resultierend kann man jetzt fÃ¼r Zahlen auch weniger
 %   als zwei Nachkommastellen angeben.
 % - Spaltenbreiten werden zentral definiert (leider nicht automatisch, sollten
 %   user definable sein)
 % - Bugfix: Wenn Positionsspalte abgeschaltet war, dann rutschten die Zeilen
 %   ein klein wenig nach oben (weil \strut dann fehlte)
 %
-% Änderungen V3.00 (2001-03-23, Ulrich Sibiller <uli42@web.de>)
+% Ã„nderungen V3.00 (2001-03-23, Ulrich Sibiller <uli42@web.de>)
 % - Positionsspalte kann abgeschaltet werden (\PositionEin/Aus)
 % - Mehrwertsteuer wird separat in zwei Zeilen ausgegeben
 % - horizontale Trennlinien zwischen den einzelnen Artikeln
-%   können abgeschaltet werden (\TrennerEin/Aus)
+%   kÃ¶nnen abgeschaltet werden (\TrennerEin/Aus)
 % - Reduktion auf weniger Code (durch Parametrisierung), da ein
-%   Großteil identisch war
-% - Neues Kommando: \Posten ist ein Alias zu Artikel 
+%   GroÃŸteil identisch war
+% - Neues Kommando: \Posten ist ein Alias zu Artikel
 % - Bugfix: Versandkosten mit erm. MwSt-Satz funktionieren jetzt. Keine
 %   Ahnung, ob es sowas ueberhaupt gibt, aber jedenfalls wurde das
 %   bisher nicht korrekt angezeigt!
@@ -61,7 +61,7 @@
 %<*driver>
 \documentclass[draft]{ltxdoc}
 \usepackage[T1]{fontenc}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{textcomp}
 \usepackage{german}
 \usepackage{rechnung}
@@ -69,7 +69,7 @@
 \DocInput{rechnung.dtx}
 \end{document}
 %</driver>
-% \fi  
+% \fi
 %
 % \GetFileInfo{rechnung.dtx}
 % \title{Das \textsf{rechnung} Paket V3.30}
@@ -81,14 +81,14 @@
 %  \maketitle
 %
 % \begin{abstract}
-%  Dieses Paket definiert \env{rechnung} und 
+%  Dieses Paket definiert \env{rechnung} und
 %  \env{rechnung\textasteriskcentered} Umgebungen
 %  um Rechnungen und Bestellungen zu erzeugen.
 % \end{abstract}
 %
 % \changes{v1.00}{1998/11/16}
 %    {Auskoppelung der Umgebungen aus bmgbrief.cls}
-% 
+%
 % \changes{v1.01}{1998/11/19}
 %    {Zahlenleseroutine erneuert. Sie gibt jetzt lesbare Fehlermeldungen
 %     bei falscher Nachkommastellenzahl}
@@ -106,12 +106,12 @@
 %    {Statt Artikel wird Beschreibung in der Titelzeile verwendet, Anzahl kann
 %    muss keine ganze Zahl mehr sein<uli42@web.de>}
 % \changes{v3.20} {2009/12/08}
-%    {Einen Rechnungstyp "K" für "nmsatzsteuer/keine Mehrwertsteuer"
-%    hinzugefügt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
+%    {Einen Rechnungstyp "K" fÃ¼r "nmsatzsteuer/keine Mehrwertsteuer"
+%    hinzugefÃ¼gt; verwendbar wenn MwSt. nach 19 UStG nicht anwendbar
 %    <tom@voodoo-arts.net>}
 % \changes{v3.30} {2010/03/05}
-%    {Fehler behoben der eine MwSt von 0\% nicht möglich machte,
-%    Euro als Standardw<E4>hrung gesetzt, für DM muss "\DMark" gesetzt
+%    {Fehler behoben der eine MwSt von 0\% nicht mÃ¶glich machte,
+%    Euro als StandardwÃ¤hrung gesetzt, fÃ¼r DM muss "\textbackslash DMark" gesetzt
 %    werden; Mehrwertsteuersatz korrigiert (von 16/7 auf 19/7; Mittels
 %    einem Prefixmakro kann allen Tabellenelementen etwas vorangsteltt
 %    werden
@@ -120,11 +120,11 @@
 %    {Abschlagszahlungen in netto-Rechnungen eingebaut
 %    <schoradt@netztierpfleger.de>}
 % \changes{v3.50} {2015/10/06}
-%    {Breite der Anzahl-Spalte um 0.3em (auf 3.2em) vergrößert;
-%     Macro hinzugefügt, um der Anzahl eine Einheit zu geben. Das kann zum
+%    {Breite der Anzahl-Spalte um 0.3em (auf 3.2em) vergrÃ¶ÃŸert;
+%     Macro hinzugefÃ¼gt, um der Anzahl eine Einheit zu geben. Das kann zum
 %     Beispiel verwendet werden, um die Anzahl als Stunden auszuweisen.
 %     Dabei sollte beachtet werden, dass sich die Breite der Anzahl-Spalte
-%     NICHT automatisch vergrößert und dass die Einheit für ALLE NACHFOLGENDEN
+%     NICHT automatisch vergrÃ¶ÃŸert und dass die Einheit fÃ¼r ALLE NACHFOLGENDEN
 %     Artikel/Posten verwendet wird
 %    <LennartHensler@aol.com>}
 %
@@ -135,23 +135,23 @@
 %
 % \section{Rechtliches}
 %
-% 
+%
 % Da das Paket ohne jegliche Kosten lizenziert wird, besteht keinerlei
-% Gewährleistung.  Ich hafte weder für unmittelbar noch mittelbar
-% entstehende Schäden aus der Verwendung des Paketes. Ich stelle das
-% Paket so zur Verfügung, \glqq wie es ist\grqq, ohne irgendeine
-% Gewährleistung, weder ausdrücklich noch implizit, einschließlich,
-% aber nicht begrenzt auf, die Tauglichkeit und Verwendbarkeit für
-% einen bestimmten Zweck. Das volle Risiko bezüglich Qualität und
-% Leistungsfähigkeit liegt bei Ihnen. Sollte das Programm fehlerhaft
-% sein, übernehmen Sie die Kosten für notwendigen Service, Reparatur
+% GewÃ¤hrleistung.  Ich hafte weder fÃ¼r unmittelbar noch mittelbar
+% entstehende SchÃ¤den aus der Verwendung des Paketes. Ich stelle das
+% Paket so zur VerfÃ¼gung, \glqq wie es ist\grqq, ohne irgendeine
+% GewÃ¤hrleistung, weder ausdrÃ¼cklich noch implizit, einschlieÃŸlich,
+% aber nicht begrenzt auf, die Tauglichkeit und Verwendbarkeit fÃ¼r
+% einen bestimmten Zweck. Das volle Risiko bezÃ¼glich QualitÃ¤t und
+% LeistungsfÃ¤higkeit liegt bei Ihnen. Sollte das Programm fehlerhaft
+% sein, Ã¼bernehmen Sie die Kosten fÃ¼r notwendigen Service, Reparatur
 % oder Korrektur.
 %
 % Die Weitergabe dieses Pakets ist erlaubt solange es
-% \emph{vollständig} weitergegeben wird. Änderungen an Dateien dieses
-% Pakets sind nur zulässig wenn die Datei \emph{vorher} umbenannt
-% wird, mein Copyright-Vermerke und der Haftungssausschluß erhalten
-% bleiben und klar ersichtlich ist, daß es sich um eine veränderte
+% \emph{vollstÃ¤ndig} weitergegeben wird. Ã„nderungen an Dateien dieses
+% Pakets sind nur zulÃ¤ssig wenn die Datei \emph{vorher} umbenannt
+% wird, mein Copyright-Vermerke und der HaftungssausschluÃŸ erhalten
+% bleiben und klar ersichtlich ist, daÃŸ es sich um eine verÃ¤nderte
 % Variante handelt.
 %
 %
@@ -161,36 +161,36 @@
 % \DescribeEnv{Rechnung}\DescribeEnv{Bestellung}
 % Die Umgebung \env{Rechnung} bzw \env{Bestellung} erstellt eine Rechnung
 % oder Bestellung. Die beiden Makros sind identisch, es wird jedoch empfohlen,
-% zur besseren Lesbarkeit das jeweils passende zu verwenden. Im weiteren Text 
+% zur besseren Lesbarkeit das jeweils passende zu verwenden. Im weiteren Text
 % wird nur \env{Rechnung} verwendet.
 % Jede Position besteht aus einer Positionsnummer, die automatisch
 % erstellt wird, der Anzahl, der Artikelbeschreibung und dem
 % Einzelpreis des Artikels. Die Preise und die Gesamtsumme werden von
 % \env{Rechnung} berechnet. \env{Rechnung} hat ein optionales
-% Argument, daß den Typ der Rechnung/Bestellung angibt:
+% Argument, daÃŸ den Typ der Rechnung/Bestellung angibt:
 % \begin{description}
 %   \item[\texttt{\textbackslash begin\{Rechnung\}}]
-%     Eine \glqq Rechnung\grqq\ ohne Mehrwertsteuer. Diese Variante eignet 
+%     Eine \glqq Rechnung\grqq\ ohne Mehrwertsteuer. Diese Variante eignet
 %     sich z.\,B. zur Erstelllung von Bestellungen.
 %   \item[\texttt{\textbackslash begin\{Rechnung\}[N]}]
-%     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind 
-%     und bei der die Mehrwertsteuer angegeben und zum Endpreis addiert 
-%     wird. (z\.B. für gewerbliche Kunden)
+%     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind
+%     und bei der die Mehrwertsteuer angegeben und zum Endpreis addiert
+%     wird. (z\.B. fÃ¼r gewerbliche Kunden)
 %   \item[\texttt{\textbackslash begin\{Rechnung\}[B]}]
-%     Eine Rechnung bei der alle Preise als Bruttopreise angegeben sind 
-%     und die enthaltene Mehrwertsteuer ausgewiesen ist. 
-%     (z.\,B. für Endverbraucher)
+%     Eine Rechnung bei der alle Preise als Bruttopreise angegeben sind
+%     und die enthaltene Mehrwertsteuer ausgewiesen ist.
+%     (z.\,B. fÃ¼r Endverbraucher)
 %   \item[\texttt{\textbackslash begin\{Rechnung\}[K]}]
-%     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind 
-%     und die Mehrwertsteuer nach \S19 UStG nicht ausweisbar ist. 
-%     (z.\,B. für Selbstständige im Kleingewerbe)
+%     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind
+%     und die Mehrwertsteuer nach \S19 UStG nicht ausweisbar ist.
+%     (z.\,B. fÃ¼r SelbststÃ¤ndige im Kleingewerbe)
 % \end{description}
 % \DescribeEnv{Rechnung\textasteriskcentered}
 % \DescribeEnv{Bestellung\textasteriskcentered}
 % Die Umgebung \env{Rechnung\textasteriskcentered} bzw. \env{Bestellung\textasteriskcentered}
 % ist zu \env{Rechnung} bzw. \env{Bestellung}
-% identisch, bis auf die, hier zusätzlich vorhandenen, Artikelnummern.
-% Der Platz für die Artikelbeschreibungen wird entsprechend kleiner.
+% identisch, bis auf die, hier zusÃ¤tzlich vorhandenen, Artikelnummern.
+% Der Platz fÃ¼r die Artikelbeschreibungen wird entsprechend kleiner.
 %
 % \DescribeMacro{\Artikel}\DescribeMacro{\Posten}
 % Mit "\Artikel" oder "\Posten" werden die einzelnen Positionen
@@ -205,50 +205,50 @@
 %    \textlangle Artikelnummer\textrangle"}{"
 %    \textlangle Artikel\textrangle"}{"
 %    \textlangle Einzelpreis\textrangle"}"\\
-% "\Artikel" hat ein optionales 
-% Argument, daß es erlaubt für diesen Artikel den ermäßigten
-% Mehrwertsteuersatz auszuwählen. Diese Positionen werden hinter dem
+% "\Artikel" hat ein optionales
+% Argument, daÃŸ es erlaubt fÃ¼r diesen Artikel den ermÃ¤ÃŸigten
+% Mehrwertsteuersatz auszuwÃ¤hlen. Diese Positionen werden hinter dem
 % Preis mit einem $^*$ gekennzeichnet und unter der Tabelle wird bei
-% Netto- und Bruttorechnungen eine \glqq Fußnote\grqq\ erzeugt. 
+% Netto- und Bruttorechnungen eine \glqq FuÃŸnote\grqq\ erzeugt.
 % Zum Beispiel:\\
-% "\Artikel[e]{5}{Der Herr der Ringe}{59,80}"\\ fügt eine Position mit
-% 5 \emph{Herr der Ringe} zum ermäßigten Mehrwertsteuersatz ein.
+% "\Artikel[e]{5}{Der Herr der Ringe}{59,80}"\\ fÃ¼gt eine Position mit
+% 5 \emph{Herr der Ringe} zum ermÃ¤ÃŸigten Mehrwertsteuersatz ein.
 % Mittels dem Makro "\ArtikelPrefix{...}" kann man jedem Element der
-% Artikel einen Prefix geben. Damit lässt sich beispielsweise die
-% Schriftgröße dieser Auflistung im Ganzen ändern:\\
+% Artikel einen Prefix geben. Damit lÃ¤sst sich beispielsweise die
+% SchriftgrÃ¶ÃŸe dieser Auflistung im Ganzen Ã¤ndern:\\
 % "\ArtikelPrefix{\small}"
 %
 %
 % Versandkosten lassen sich mit \DescribeMacro{\Versandkosten}
 % "\Versandkosten{"\textlangle Preis\textrangle"}" eingeben und
-% bekommen keine Positionsnummer. Es sind auch ermäßigte Versandkosten über
-% den optionalen Parameter "[e]" möglich, allerdings ist nicht bekannt, ob
-% es sowas überhaupt irgendwo gibt.
+% bekommen keine Positionsnummer. Es sind auch ermÃ¤ÃŸigte Versandkosten Ã¼ber
+% den optionalen Parameter "[e]" mÃ¶glich, allerdings ist nicht bekannt, ob
+% es sowas Ã¼berhaupt irgendwo gibt.
 %
-% \DescribeMacro{\Waehrung} Die Währungseinheit, die hinter die Beträge
+% \DescribeMacro{\Waehrung} Die WÃ¤hrungseinheit, die hinter die BetrÃ¤ge
 % gesetzt wird, ist auf DM voreingestellt. Mit "\Waehrung{...}" kann
-% eine beliebige andere Währung gesetzt werden, "\Waehrung{F}" setzt
-% z.\,B. die Währung auf \glqq F\grqq. Für den Euro gibt es eine Abkürzung
+% eine beliebige andere WÃ¤hrung gesetzt werden, "\Waehrung{F}" setzt
+% z.\,B. die WÃ¤hrung auf \glqq F\grqq. FÃ¼r den Euro gibt es eine AbkÃ¼rzung
 % "\Euro" die identisch zu "\Waehrung{\texteuro}" ist und (falls das
 % "textcomp"-Paket eingebunden ist) ein \texteuro\ erzeugt.
 %
-% \DescribeMacro{\Steuersatz}Die Steuersätze lassen sich mit
+% \DescribeMacro{\Steuersatz}Die SteuersÃ¤tze lassen sich mit
 % "\Steuersatz{"\textlangle Steuersatz 1\textrangle"}{"
-%  \textlangle Steuersatz 2\textrangle"}" festlegen. Standardmäßig ist
+%  \textlangle Steuersatz 2\textrangle"}" festlegen. StandardmÃ¤ÃŸig ist
 % Steuersatz 1 auf "19" und Steuersatz 2 auf "7" eingestellt. Dies entspricht
-% dem Mehrwertsteuersatz von 19\% und dem ermäßigtem Mehrwertsteuersatz von
-% 7\%. 
+% dem Mehrwertsteuersatz von 19\% und dem ermÃ¤ÃŸigtem Mehrwertsteuersatz von
+% 7\%.
 %
 % \DescribeMacro{\Gesamtsumme}\DescribeMacro{\Mehrwertsteuer}
 % Nach dem Ende einer \env{Rechnung}- bzw. \env{Bestellung}\-Umgebung lassen
-% sich die Gesamtsumme und die Mehrwertsteuer 
-% noch mit den Makros "\Gesamtsumme" und 
-% "\Mehrwertsteuer" in den Text einfügen.
+% sich die Gesamtsumme und die Mehrwertsteuer
+% noch mit den Makros "\Gesamtsumme" und
+% "\Mehrwertsteuer" in den Text einfÃ¼gen.
 %
 % \DescribeMacro{\PositionEin}\DescribeMacro{\PositionAus}
-% Hiermit läßt sich die Ausgabe der Positionsspalte aktivieren bzw. unterdrücken,
-% da diese nicht immer benötigt wird. Voreingestellt ist "\PositionEin"
-% Die Makros können beliebig oft
+% Hiermit lÃ¤ÃŸt sich die Ausgabe der Positionsspalte aktivieren bzw. unterdrÃ¼cken,
+% da diese nicht immer benÃ¶tigt wird. Voreingestellt ist "\PositionEin"
+% Die Makros kÃ¶nnen beliebig oft
 % auftreten, es wird jedoch nur das letzte vor dem ersten Artikel beachtet.
 % Sobald ein Artikel angegeben wurde, werden die Makros ignoriert.
 %
@@ -257,15 +257,15 @@
 % einzelnen Posten befinden. Da dies aber Geschmackssache ist, kann man die
 % Ausgabe von Trennlinien mit den Makros "\TrennerEin" bzw. "\TrennerAus"
 % steuern. Voreinstellung ist "\TrennerEin".
-% Die Makros können beliebig oft
+% Die Makros kÃ¶nnen beliebig oft
 % auftreten, es wird jedoch nur das letzte vor dem ersten Artikel beachtet.
 % Sobald ein Artikel angegeben wurde, kann die Einstellung nicht mehr
-% verändert werden.
+% verÃ¤ndert werden.
 %
 % \DescribeMacro{\AnzahlEinheit}Die Einheit aller nachfolgender Artikel/Posten
 % lassen sich mit "\AnzahlEinheit{"\textlangle Einheit\textrangle"}" festlegen.
-% Die Einheit wird von einem Leerzeichen getrennt hinter die Anzahl eingefügt.
-% Standardmäßig ist die keine Einheit gewählt.
+% Die Einheit wird von einem Leerzeichen getrennt hinter die Anzahl eingefÃ¼gt.
+% StandardmÃ¤ÃŸig ist die keine Einheit gewÃ¤hlt.
 % Das Makro kann beliebig oft auftreten. Dabei beeinflusst die jeweile Definition
 % immer nur die nachfolgenden Artikel/Posten. Dies kann verwendet werden, um
 % unterschiedlichen Artikeln/Posten unterschiedliche Einheiten zu geben.
@@ -273,49 +273,49 @@
 % \section{Beispiele}
 %
 % \subsection{Bestellung ohne Artikelnummern}
-% Dieses Beispiel demonstriert, daß eine Vielzahl von Textauszeichnungs-
-% und Formatierungsmöglichkeiten innerhalb einer \env{Rechnung}-Umgebung 
+% Dieses Beispiel demonstriert, daÃŸ eine Vielzahl von Textauszeichnungs-
+% und FormatierungsmÃ¶glichkeiten innerhalb einer \env{Rechnung}-Umgebung
 % verwendet werden kann.
-% 
+%
 % \begin{verbatim}
 % \begin{Rechnung}
 % \Artikel{1}{Der Herr der Ringe
 %   \begin{enumerate}
-%     \item Die Gefährten
-%     \item Die zwei Türme
-%     \item Die Rückkehr des Königs
+%     \item Die GefÃ¤hrten
+%     \item Die zwei TÃ¼rme
+%     \item Die RÃ¼ckkehr des KÃ¶nigs
 %     \end{enumerate}
-%     John Ronald R. Tolkien\\ 
+%     John Ronald R. Tolkien\\
 %     \scriptsize Taschenbuch, Erschienen 1972}{59,80}
 % \Artikel{4}{\textbf{Der kleine Hobbit}\\
 %   \textit{John Ronald R. Tolkien}, Taschenbuch, Erschienen 1995}{12,90}
 % \Versandkosten{9,90}
 % \end{Rechnung}
-% \noindent Ein Verrechnungsscheck über \Gesamtsumme\ liegt bei.
+% \noindent Ein Verrechnungsscheck Ã¼ber \Gesamtsumme\ liegt bei.
 % \end{verbatim}
 %
 % \vbox{
 % \begin{Rechnung}
 % \Artikel{1}{Der Herr der Ringe
 %   \begin{enumerate}
-%     \item Die Gefährten
-%     \item Die zwei Türme
-%     \item Die Rückkehr des Königs
+%     \item Die GefÃ¤hrten
+%     \item Die zwei TÃ¼rme
+%     \item Die RÃ¼ckkehr des KÃ¶nigs
 %     \end{enumerate}
-%     John Ronald R. Tolkien\\ 
+%     John Ronald R. Tolkien\\
 %     \scriptsize Taschenbuch, Erschienen 1972}{59,80}
 % \Artikel{4}{\textbf{Der kleine Hobbit}\\
 %   \textit{John Ronald R. Tolkien}, Taschenbuch, Erschienen 1995}{12,90}
 % \Versandkosten{9,90}
 % \end{Rechnung}
-% \noindent Ein Verrechnungsscheck über\Gesamtsumme\ liegt bei.
+% \noindent Ein Verrechnungsscheck Ã¼ber\Gesamtsumme\ liegt bei.
 % }
 % \subsection{Bestellung mit Artikelnummern}
 %
 % \begin{verbatim}
 % \begin{Rechnung*}
 % \Artikel{1}{3345765}{The \TeX-Book von Donald E. Knuth}{85,47}
-% \Artikel{1500}{879847}{Büroklammern}{0,03}
+% \Artikel{1500}{879847}{BÃ¼roklammern}{0,03}
 % \Versandkosten{12,95}
 % \end{Rechnung*}
 % \end{verbatim}
@@ -323,7 +323,7 @@
 % \vbox{
 % \begin{Rechnung*}
 % \Artikel{1}{3345765}{The \TeX-Book von Donald E. Knuth}{85,47}
-% \Artikel{1500}{879847}{Büroklammern}{0,03}
+% \Artikel{1500}{879847}{BÃ¼roklammern}{0,03}
 % \Versandkosten{12,95}
 % \end{Rechnung*}
 % }
@@ -333,34 +333,34 @@
 % \begin{verbatim}
 % \begin{Rechnung}[N]
 % \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
-% \Artikel{20}{Erdnüße}{0,99}
+% \Artikel{20}{ErdnÃ¼ÃŸe}{0,99}
 % \Versandkosten{10,00}
 % \end{Rechnung}
-% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \noindent Im Betrag von \Gesamtsumme\ sind also
 % \Mehrwertsteuer\ Mehrwertsteuer enthalten.
 % \end{verbatim}
 %
 % \vbox{
 % \begin{Rechnung}[N]
 % \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
-% \Artikel{20}{Erdnüsse}{0,85}
+% \Artikel{20}{ErdnÃ¼sse}{0,85}
 % \Versandkosten{10,00}
 % \end{Rechnung}
-% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \noindent Im Betrag von \Gesamtsumme\ sind also
 % \Mehrwertsteuer\ Mehrwertsteuer enthalten.
 % }
 %
 % \subsection{Rechnung mit Nettopreisen und Mehrwertsteuer, ohne Trennlinien und Positionsnummern}
-% 
+%
 % \begin{verbatim}
 % \begin{Rechnung}[N]
 % \PositionAus
 % \TrennerAus
 % \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
-% \Artikel{20}{Erdnüße}{0,99}
+% \Artikel{20}{ErdnÃ¼ÃŸe}{0,99}
 % \Versandkosten{10,00}
 % \end{Rechnung}
-% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \noindent Im Betrag von \Gesamtsumme\ sind also
 % \Mehrwertsteuer\ Mehrwertsteuer enthalten.
 % \end{verbatim}
 %
@@ -369,10 +369,10 @@
 % \PositionAus
 % \TrennerAus
 % \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{79,88}
-% \Artikel{20}{Erdnüsse}{0,85}
+% \Artikel{20}{ErdnÃ¼sse}{0,85}
 % \Versandkosten{10,00}
 % \end{Rechnung}
-% \noindent Im Betrag von \Gesamtsumme\ sind also 
+% \noindent Im Betrag von \Gesamtsumme\ sind also
 % \Mehrwertsteuer\ Mehrwertsteuer enthalten.
 % }
 %
@@ -384,7 +384,7 @@
 % \Euro
 % \begin{Rechnung}[B]
 % \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{42,73}
-% \Artikel{20}{Erdnüsse}{0,49}
+% \Artikel{20}{ErdnÃ¼sse}{0,49}
 % \Versandkosten{5,80}
 % \end{Rechnung}
 % \end{verbatim}
@@ -393,7 +393,7 @@
 % \Euro
 % \begin{Rechnung}[B]
 % \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{42,73}
-% \Artikel{20}{Erdnüsse}{0,49}
+% \Artikel{20}{ErdnÃ¼sse}{0,49}
 % \Versandkosten{5,80}
 % \end{Rechnung}
 % }
@@ -406,8 +406,8 @@
 %
 % \subsection{Deklarationen}
 %
-% Einige Zähler für Position, Gesamtsumme, Mehrwertsteuer und zur 
-% Parameterübergabe und temporäre Daten
+% Einige ZÃ¤hler fÃ¼r Position, Gesamtsumme, Mehrwertsteuer und zur
+% ParameterÃ¼bergabe und temporÃ¤re Daten
 %    \begin{macrocode}
 \newcount\@RCHcnt \newcount\@RCHsum \newcount\@RCHtmp
 \newcount\@RCHmwst \newcount\@RCHmwsti \newcount\@RCHmwstii
@@ -430,7 +430,7 @@
 \@RCHGesamtWidth=6.1em%
 %    \end{macrocode}
 %  \begin{macro}{\@RCHerm}
-% Ein Schalter der das Auftauchen von ermäßigtem MwSt-Satz anzeigt.
+% Ein Schalter der das Auftauchen von ermÃ¤ÃŸigtem MwSt-Satz anzeigt.
 %    \begin{macrocode}
 \newif\if@RCHerm
 %    \end{macrocode}
@@ -451,7 +451,7 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@RCHfirst}
-% Ein Schalter der anzeigt, daß der erste Artikel eingefügt wird
+% Ein Schalter der anzeigt, daÃŸ der erste Artikel eingefÃ¼gt wird
 %    \begin{macrocode}
 \newif\if@RCHfirst
 %    \end{macrocode}
@@ -459,7 +459,7 @@
 %
 %  \begin{macro}{\@RCHhor}
 % Ein Schalter der anzeigt, ob horizontale Trennlinien zwischen den
-% Artikeln eingefügt werden
+% Artikeln eingefÃ¼gt werden
 %    \begin{macrocode}
 \newif\if@RCHhor
 %    \end{macrocode}
@@ -480,7 +480,7 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@RCHwdt}
-% Breite der Spalte für die Artikelbezeichnung
+% Breite der Spalte fÃ¼r die Artikelbezeichnung
 %    \begin{macrocode}
 \newdimen\@RCHwdt
 %    \end{macrocode}
@@ -494,7 +494,7 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@RCHstsii}
-% ermäßigter Mehrwertsteuersatz
+% ermÃ¤ÃŸigter Mehrwertsteuersatz
 %    \begin{macrocode}
 \newcommand*\@RCHstsii{7}
 %    \end{macrocode}
@@ -522,7 +522,7 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@waehrung}
-% aktuelle Währung. Voreingestellt ist Euro.
+% aktuelle WÃ¤hrung. Voreingestellt ist Euro.
 %    \begin{macrocode}
 \newcommand*\@waehrung{\texteuro}
 %    \end{macrocode}
@@ -531,14 +531,14 @@
 % \subsection{Benutzermacros}
 %
 %  \begin{macro}{\Steuersatz}
-% Stellt neue Mehrwertsteuersätze (normal und ermäßigt) ein.
+% Stellt neue MehrwertsteuersÃ¤tze (normal und ermÃ¤ÃŸigt) ein.
 %    \begin{macrocode}
 \newcommand*\Steuersatz[2]{\def\@RCHstsi{#1}\def\@RCHstsii{#2}}
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \begin{macro}{\Waehrung}
-% Stellt eine beliebige Währung ein.
+% Stellt eine beliebige WÃ¤hrung ein.
 %    \begin{macrocode}
 \newcommand*\Waehrung[1]{\def\@waehrung{#1}}
 %    \end{macrocode}
@@ -561,29 +561,29 @@
 %  \end{macro}
 %
 %  \begin{macro}{\ArtikelPrefix}
-% Setzt einen belibigen Prefix für das Setzen der Artikelbeschreibung. Damit
-% kann beispielsweise die Schriftgröße angepasst werden.
+% Setzt einen belibigen Prefix fÃ¼r das Setzen der Artikelbeschreibung. Damit
+% kann beispielsweise die SchriftgrÃ¶ÃŸe angepasst werden.
 %    \begin{macrocode}
 \newcommand*\ArtikelPrefix[1]{\def\@ArtikelPrefix{#1}}
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \begin{macro}{\AnzahlEinheit}
-% Setzt einen belibigen Suffix für die Anzahl der Artikel.
+% Setzt einen belibigen Suffix fÃ¼r die Anzahl der Artikel.
 %    \begin{macrocode}
 \newcommand*\AnzahlEinheit[1]{\def\@AnzahlSuffix{\,#1}}
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \begin{macro}{\Euro}
-% Stellt die Währung auf Euro um. (benötigt textcomp)
+% Stellt die WÃ¤hrung auf Euro um. (benÃ¶tigt textcomp)
 %    \begin{macrocode}
 \newcommand*\Euro{\def\@waehrung{\texteuro}}
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \begin{macro}{\DMark}
-% Stellt die Währung auf DM um. (benötigt textcomp)
+% Stellt die WÃ¤hrung auf DM um. (benÃ¶tigt textcomp)
 %    \begin{macrocode}
 \newcommand*\DMark{\def\@waehrung{D\kern-0.05em M}}
 %    \end{macrocode}
@@ -591,14 +591,14 @@
 %
 %  \begin{macro}{\Gesamtsumme}
 % Gibt die Gesamtsumme der letzten Tabelle aus.
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\Gesamtsumme{\writeCurrency\@RCHsum}
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \begin{macro}{\Mehrwertsteuer}
 % Gibt die Mehrwertsteuer der letzten Tabelle aus.
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\Mehrwertsteuer{\writeCurrency\@RCHmwst}
 %    \end{macrocode}
 %  \end{macro}
@@ -606,31 +606,31 @@
 % \subsection{Zahlenmacros}
 %
 %  \begin{macro}{\@RCHwrite}
-% Gibt einen Zähler gerundet auf zwei Nachkommastellen aus.  
+% Gibt einen ZÃ¤hler gerundet auf zwei Nachkommastellen aus.
 % (cntr/100,cntr\%100)
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@RCHwrite[1]{
   \@tempcnta=#1
   \@tempcntb\@tempcnta
   \divide\@tempcnta100 \the\@tempcnta,%
   \multiply\@tempcnta100\advance\@tempcntb-\@tempcnta
   \@tempcnta\@tempcntb\divide\@tempcnta10 \the\@tempcnta
-  \multiply\@tempcnta10\advance\@tempcntb-\@tempcnta 
+  \multiply\@tempcnta10\advance\@tempcntb-\@tempcnta
   \the\@tempcntb
 }
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \begin{macro}{\writeCurrency}
-% Gibt einen Zähler als Währungsbetrag aus.
-%    \begin{macrocode} 
+% Gibt einen ZÃ¤hler als WÃ¤hrungsbetrag aus.
+%    \begin{macrocode}
 \newcommand*\writeCurrency[1]{\@RCHwrite{#1}\,\@waehrung}
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \begin{macro}{\writebfCurrency}
-% Gibt eine Zähler als Währungsbetrag mit fetter Zahl aus.
-%    \begin{macrocode} 
+% Gibt eine ZÃ¤hler als WÃ¤hrungsbetrag mit fetter Zahl aus.
+%    \begin{macrocode}
 \newcommand*\writebfCurrency[1]{{\fontseries{b}
   \selectfont\writeCurrency{#1}}}
 %    \end{macrocode}
@@ -639,7 +639,7 @@
 %  \begin{macro}{\@readNum}
 % Liest eine Zahl der Form [Zahl]*{,[Zahl]{[Zahl]}} in
 % \verb|\@RCHtmp| ein
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@readNum[1]{\@RCHtmp=0\@readA#1\relax}
 %    \end{macrocode}
 %  \end{macro}
@@ -647,9 +647,9 @@
 %  \begin{macro}{\@readA}
 % Liest eine Zahl ein. Falls Nachkommastellen vorhanden sind,
 % werden diese ebenfalls eingelesen. Nachkommastellen werden
-% mit , oder . abgetrennt. Tritt eines dieser Zeichen auf, dann müssen
+% mit , oder . abgetrennt. Tritt eines dieser Zeichen auf, dann mÃ¼ssen
 % auch Nachkommastellen kommen, sonst wird ein Fehler ausgegeben.
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@readA[1]{%
   \expandafter\if#1\relax\@tempcnta0\@readC\relax
   \else\expandafter\if#1.\@tempcnta0
@@ -667,9 +667,9 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@readB}
-% Liest zwei Nachkommastellen ein. Bei 0 oder mehr als 2 Stellen 
+% Liest zwei Nachkommastellen ein. Bei 0 oder mehr als 2 Stellen
 % wird eine Fehlermeldung erzeugt.
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@readB[1]{%
   \expandafter\if#1\relax\relax
      \ifnum \@tempcnta > 2
@@ -678,7 +678,7 @@
      \else
        \ifnum \@tempcnta = 2
        \else
-         \ifnum \@tempcnta > 0		
+         \ifnum \@tempcnta > 0
 	   \advance\@tempcnta1
            \multiply\@RCHtmp10
 	   \@readB\relax
@@ -700,7 +700,7 @@
 % Liest zwei Nachkommastellen ein. Wenn weniger vorhanden sind, dann
 % werden Nullen angenommen. Sind mehr als zwei Nachkommastellen vorhanden,
 % erfolgt eine Fehlermeldung!
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@readC[1]{%
   \expandafter
   \if#1\relax\relax
@@ -721,10 +721,10 @@
 %    \end{macrocode}
 %  \end{macro}
 %
-% \subsection{Rechnungsabschlußmacros}
+% \subsection{RechnungsabschluÃŸmacros}
 %
 %  \begin{macro}{\writefoot}
-%  Gibt Fußnote mit reduziertem MwSt.Satz aus.
+%  Gibt FuÃŸnote mit reduziertem MwSt.Satz aus.
 % \begin{macrocode}
 \newcommand*{\writefoot}[0]{
   \if@RCHerm
@@ -738,8 +738,8 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@RCHsline}
-% Erzeugt eine Zeile für Summe, Mehrwertsteuer, \dots
-%    \begin{macrocode} 
+% Erzeugt eine Zeile fÃ¼r Summe, Mehrwertsteuer, \dots
+%    \begin{macrocode}
 \newcommand*\@RCHsline[2]{%
   \goodbreak\nointerlineskip
   \vbox{\hrule
@@ -754,7 +754,7 @@
 %
 %  \begin{macro}{\@RCHohne}
 % Beendet eine Tabelle ohne Angabe von Mehrwertsteuer
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@RCHohne{
   \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}}
 %    \end{macrocode}
@@ -762,12 +762,12 @@
 %
 %  \begin{macro}{\@RCHnetto}
 % Beendet eine Tabelle mit Nettopreisen und Mehrwertsteuer.
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@RCHnetto{
   \@RCHsline{Nettosumme}{\writeCurrency\@RCHsum}%
 %    \end{macrocode}
 % \[\left\lfloor\frac{\hbox{Nettosumme}\cdot\hbox{Steuersatz}+50}{100}\right\rfloor\]
-%    \begin{macrocode} 
+%    \begin{macrocode}
   \multiply\@RCHmwsti\@RCHstsi
   \advance\@RCHmwsti50\divide\@RCHmwsti100
   \multiply\@RCHmwstii\@RCHstsii
@@ -821,15 +821,15 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@RCHbrutto}
-% Beendet eine Tabelle mit Bruttopreisen und gibt die 
+% Beendet eine Tabelle mit Bruttopreisen und gibt die
 % enthaltene Mehrwertsteuer an.
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@RCHbrutto{
   \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}
 %    \end{macrocode}
 % \[ \left\lfloor\frac{2\cdot\mbox{Bruttosumme}\cdot\mbox{Steuersatz}+
 %     100+\mbox{Steuersatz}}{2(100+\mbox{Steuersatz})}\right\rfloor \]
-%    \begin{macrocode} 
+%    \begin{macrocode}
   \multiply\@RCHmwsti\@RCHstsi\multiply\@RCHmwsti2%
   \@tempcnta100\advance\@tempcnta\@RCHstsi
   \advance\@RCHmwsti\@tempcnta
@@ -855,7 +855,7 @@
 
 %  \begin{macro}{\sep}
 % Gibt eine vertikale Trennlinie innerhalb einer Zeile aus
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*{\sep}[0]{\hskip\tabcolsep\vrule\hskip\tabcolsep}
 \newcommand*{\rsep}[0]{\hskip\tabcolsep\vrule}
 \newcommand*{\lsep}[0]{\vrule\hskip\tabcolsep}
@@ -865,8 +865,8 @@
 
 %  \begin{macro}{\@RCHlineX}
 % Erzeugt eine Position in einer Rechnung mit Artikelnummern
-% Param: Position, Anzahl, Art.-Nr.,Artikel, Einzelpreis, Gesamtpreis 
-%    \begin{macrocode} 
+% Param: Position, Anzahl, Art.-Nr.,Artikel, Einzelpreis, Gesamtpreis
+%    \begin{macrocode}
 \newcommand*\@RCHlineX[6]{{
 \goodbreak\nointerlineskip
     \vbox{
@@ -902,11 +902,11 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@ArtikelX}
-% Berechnet für einen Artikel den Preis aus Anzahl und Einzelpreis,
-% erhöht die Gesamtsumme und die entsprechende Mehrwertsteuersumme
+% Berechnet fÃ¼r einen Artikel den Preis aus Anzahl und Einzelpreis,
+% erhÃ¶ht die Gesamtsumme und die entsprechende Mehrwertsteuersumme
 % und gibt die Position aus.
-% Param: [ermaessigt,] Anzahl, (X: Art.-Nr.,) Artikel, Einzelpreis 
-%    \begin{macrocode} 
+% Param: [ermaessigt,] Anzahl, (X: Art.-Nr.,) Artikel, Einzelpreis
+%    \begin{macrocode}
 \newcommand*\@Artikel[4][X]{\@ArtikelX[#1]{#2}{}{#3}{#4}}
 \newcommand*\@ArtikelX[5][X]{
   \initRechnung
@@ -914,16 +914,16 @@
   \@readNum{#5}
   \@RCHtmptmp=\@RCHtmp%
   \@readNum{#2}\multiply\@RCHtmp\@RCHtmptmp
-  \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen. 
+  \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen.
   \@lineBaseX[#1]{\the\@RCHcnt}{#2\@AnzahlSuffix}{#3}{#4}{#5\,\@waehrung}
 }
 %    \end{macrocode}
 %  \end{macro}%
 %
 %  \begin{macro}{\@GutschriftX}
-% Fügt eine Gutschrift hinzu und gibt diese aus.
-% Param: [ermaessigt,] Beschreibung, Betrag 
-%    \begin{macrocode} 
+% FÃ¼gt eine Gutschrift hinzu und gibt diese aus.
+% Param: [ermaessigt,] Beschreibung, Betrag
+%    \begin{macrocode}
 \newcommand*\@Gutschrift[3][X]{\@GutschriftX[#1]{#2}{#3}}
 \newcommand*\@GutschriftX[3][X]{
   \initRechnung
@@ -936,9 +936,9 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@VersandkostenX}
-% Erzeugt eine Zeile für die Versandkosten, die keinen Einzelpreis und 
+% Erzeugt eine Zeile fÃ¼r die Versandkosten, die keinen Einzelpreis und
 % und keine Positionsnummer bekommt (mit Artikelnummer).
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@Versandkosten[2][X]{\@VersandkostenX[#1]{#2}}
 \newcommand*\@VersandkostenX[2][X]{
   \initRechnung
@@ -950,7 +950,7 @@
 %
 %  \begin{macro}{\@AbschlagszahlungX}
 % Erzeugt eine Abschlagszahlung
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*\@Abschlagszahlung[2][X]{\@AbschlagszahlungX[#1]{#2}}
 \newcommand*\@AbschlagszahlungX[2][X]{
   \initRechnung
@@ -962,7 +962,7 @@
 %  \end{macro}
 %
 %  \begin{macro}{\@lineBaseX}
-% Gemeinsamer Code für Artikel- und Versandkostenzeilen
+% Gemeinsamer Code fÃ¼r Artikel- und Versandkostenzeilen
 %    \begin{macrocode}
 \newcommand*\@lineBaseX[6][X]{
   \global\advance\@RCHsum\@RCHtmp
@@ -981,7 +981,7 @@
 %
 %  \begin{macro}{\Rechnung*}
 % Beginnt eine Rechnung oder Bestellung ohne/mit Artikelnummer
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newenvironment*{Rechnung}[1][X]{\RechnungStart{#1}{}}{\RechnungEnde}
 \newenvironment*{Rechnung*}[1][X]{\RechnungStart{#1}{X}}{\RechnungEnde}
 \newenvironment*{Bestellung}[0]{\RechnungStart{X}{}}{\RechnungEnde}
@@ -1022,7 +1022,7 @@
   \global\@RCHhortrue
 %    \end{macrocode}
 % Param 2: Mit Artikelnummern?
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \ifx#2X
   \global\@RCHartnumtrue
   \let\Artikel\@ArtikelX
@@ -1047,13 +1047,13 @@
 % Initialisierungen vorgenommen wurden. Das ist noetig, da
 % einige Einstellungen innerhalb der Umgebung veraendert werden
 % duerfen.
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \newcommand*{\initRechnung}[0]
 {
   \if@RCHinit
   \else
     % Breite wegen Anzeige der Positionsnummern korrigieren
-    %    \begin{macrocode} 
+    %    \begin{macrocode}
     \if@RCHpos
       \advance\@RCHwdt-\@RCHPosWidth
       \advance\@RCHwdt-0.4pt
@@ -1061,19 +1061,19 @@
     \fi
     %    \end{macrocode}
     % Breite wegen Anzeige der Artikelnummern korrigieren
-    %    \begin{macrocode} 
+    %    \begin{macrocode}
     \if@RCHartnum
       \advance\@RCHwdt-\@RCHArtnumWidth
       \advance\@RCHwdt-0.4pt
       \advance\@RCHwdt-2\tabcolsep
     \fi
     %    \end{macrocode}
-    % bißchen Platz über der Rechnung
-    %    \begin{macrocode} 
+    % biÃŸchen Platz Ã¼ber der Rechnung
+    %    \begin{macrocode}
     \vskip\abovedisplayskip
     %    \end{macrocode}
     % Titelzeile ausgeben
-    %    \begin{macrocode} 
+    %    \begin{macrocode}
     \@RCHlineX{\scriptsize Pos.\hfill}%
               {\scriptsize Anzahl\hfill}%
               {\scriptsize Art.\,Nr.\hfill}%
@@ -1101,8 +1101,8 @@
   \fi\fi\fi\fi
   \global\@RCHsum\@RCHsum\global\@RCHmwst\@RCHmwst
 %    \end{macrocode}
-% bißchen Platz unter der Rechnung
-%    \begin{macrocode} 
+% biÃŸchen Platz unter der Rechnung
+%    \begin{macrocode}
   \vskip\belowdisplayskip
 }
 %    \end{macrocode}

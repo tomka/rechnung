@@ -3,7 +3,7 @@
 Das ist ein Fork von [M G Berberich](https://www.forwiss.uni-passau.de/~berberic/TeX/Rechnung/index.html)
 bzw der von Ulrich Sibiller verbesserten Version.
 
-Die Originalversion wurde um ein Makefile ergänzt.
+Diese Version wurde wiederum mehrfach erweitert und um ein Makefile ergänzt.
 
 ## Beschreibung
 
@@ -22,3 +22,11 @@ Dazu verfügt rechnung.sty über folgende Fähigkeiten:
 
 ## Einschränkungen/bekannte Bugs:
 * rechnung.sty bricht zwar die Tabelle um, fügt aber nach einem Umbruch keine neue Kopfzeile ein.
+
+## Installation
+Die installation kann entweder durch das Kommando `make install && make install.dvi` automatisiert oder manuell ausgeführt werden:
+
+### Manuelle installation
+* Zuerst rechnung.sty erzeugen: `latex rechnung.ins`
+* Dann die Dokumentation: `latex rechnung.dtx`
+* rechnung.sty muss in den Pfad von LaTeX 2e `.../tex/latex/` ,wobei "..." systemspezifisch ist.

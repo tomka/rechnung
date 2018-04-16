@@ -11,7 +11,7 @@
 % mit ohno MwSt. und Hinweis t.: \begin{Rechnung}[K] \begin{Bestellung}[K]
 % ohne MwSt.                   : \begin{Rechnung}    \begin{Bestellung}
 % \begin{Rechnung*} bzw. \begin{Bestellung*} generiert Rechnung/Bestellung
-% mit Artikelnummern, muﬂ dann bei \Artikel bzw. \Posten angegeben werden
+% mit Artikelnummern, mu√ü dann bei \Artikel bzw. \Posten angegeben werden
 % (zweiter nicht-optionaler Parameter)
 %
 % Positionsnummern ein/ausschalten (default: ein)
@@ -24,22 +24,22 @@
 % \TrennerEin
 % \TrennerAus
 %
-% W‰hrung ‰ndern (default: Euro)
+% W√§hrung √§ndern (default: Euro)
 % ----------------------------
 % \DMark
 % \Euro
-% \Waehrung{W‰hrungszeichen}
+% \Waehrung{W√§hrungszeichen}
 %
-% Setzen der Steuers‰tze (voller, erm‰ﬂigter), (default: 19% / 7%)
+% Setzen der Steuers√§tze (voller, erm√§√üigter), (default: 19% / 7%)
 % ---------------------------------------------------------------
 % \Steuersatz{19}{7}
 %
-% Versandkosten einf¸gen
+% Versandkosten einf√ºgen
 % ----------------------
 % voller Steuersatz:     \Versandkosten{5,90}
-% erm‰ﬂigter Steuersatz: \Versandkosten[e]{5,90}
+% erm√§√üigter Steuersatz: \Versandkosten[e]{5,90}
 %
-% Posten/Artikel eintragen: [e] = erm‰ﬂigter Steuersatz
+% Posten/Artikel eintragen: [e] = erm√§√üigter Steuersatz
 % -----------------------------------------------------
 % \Artikel[e]{Anzahl}{Text}{Einzelpreis}
 % \Posten{Anzahl}{Text}{Einzelpreis, Trennzeichen ist Komma}
@@ -47,7 +47,7 @@
 % \Artikel{1}{h Kabelverlegung}{60,00} 
 % \Artikel{1}{ArtikelNummer}{h Kabelverlegung}{60,00}
 %
-% Nachkommastellen m¸ssen immer zweistellig sein, sonst wird nicht richtig
+% Nachkommastellen m√ºssen immer zweistellig sein, sonst wird nicht richtig
 % gerechnet!
 %
 % Nach Verwendung der Umgebung lassen sich im Text noch \Mehrwertsteuer

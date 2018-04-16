@@ -29,8 +29,19 @@ STATUS  =
 
 # Directories
 prefix = $(HOME)
+ifeq ($(OS),Windows_NT)
+    detected_OS := Windows
+	# not supported
+else
+    detected_OS := $(shell uname -s)
+    ifeq ($(detected_OS),Darwin)
+    	# macOS
+        prefix := $(prefix)/Library/texmf
+    endif
+endif
 texdir = $(prefix)/tex/inputs
 docdir = $(texdir)/doc
+dvidir = $(prefix)/doc
 
 # Commands
 INSTALL = install -c -m 755
@@ -67,12 +78,18 @@ ps: rechnung.ps
 dvi: rechnung.dvi
 
 install: all
+	mkdir -p $(texdir)
 	$(INSTALL_DATA) rechnung.sty $(texdir)
 
 install.doc: all
+	mkdir -p $(docdir)
 	$(INSTALL_DATA) rechnung.dtx $(docdir)
 	$(INSTALL_DATA) rechnung.drv $(docdir)
 	$(INSTALL_DATA) rechnungman.drv $(docdir)
+
+install.dvi: dvi
+	mkdir -p $(dvidir)
+	$(INSTALL_DATA) rechnung.dvi $(dvidir)
 
 uninstall:
 	rm -f $(texdir)/rechnung.sty
