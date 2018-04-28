@@ -1052,28 +1052,28 @@
 {
   \if@RCHinit
   \else
-    % Breite wegen Anzeige der Positionsnummern korrigieren
-    %    \begin{macrocode}
+% Breite wegen Anzeige der Positionsnummern korrigieren
+%    \begin{macrocode}
     \if@RCHpos
       \advance\@RCHwdt-\@RCHPosWidth
       \advance\@RCHwdt-0.4pt
       \advance\@RCHwdt-2\tabcolsep
     \fi
-    %    \end{macrocode}
-    % Breite wegen Anzeige der Artikelnummern korrigieren
-    %    \begin{macrocode}
+%    \end{macrocode}
+% Breite wegen Anzeige der Artikelnummern korrigieren
+%    \begin{macrocode}
     \if@RCHartnum
       \advance\@RCHwdt-\@RCHArtnumWidth
       \advance\@RCHwdt-0.4pt
       \advance\@RCHwdt-2\tabcolsep
     \fi
-    %    \end{macrocode}
-    % bißchen Platz über der Rechnung
-    %    \begin{macrocode}
+%    \end{macrocode}
+% bißchen Platz über der Rechnung
+%    \begin{macrocode}
     \vskip\abovedisplayskip
-    %    \end{macrocode}
-    % Titelzeile ausgeben
-    %    \begin{macrocode}
+%    \end{macrocode}
+% Titelzeile ausgeben
+%    \begin{macrocode}
     \@RCHlineX{\scriptsize Pos.}%
               {\scriptsize Anzahl}%
               {\scriptsize Art.\,Nr.}%
