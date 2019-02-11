@@ -1,0 +1,57 @@
+\documentclass[backaddress=false,11pt,a4paper]{scrlttr2}
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage{textcomp}
+\usepackage{rechnung}
+
+\setkomavar{fromphone}{+49 (0)355 / 00 00 000 00}
+\setkomavar{fromname}{}
+\setkomavar{fromaddress}{Musterstr. 00\\ 03000 Musterstadt}
+\setkomavar{subject}{Rechnung Nr.: XX-XX}
+\setkomavar{yourmail}{} 
+\setkomavar{yourref}{}
+
+\parindent0pt
+
+\usepackage{color,calc,ngerman,mathptmx}
+\firsthead{\null\hfill
+\parbox[t][\headheight][t]{6cm}{%
+\raggedright
+
+
+\color[gray]{.5}%
+Muster GbR\\[\baselineskip]
+Musterstr. 00\\
+03000 Musterstadt\\[\baselineskip]
+Telefon: \usekomavar{fromphone}\\
+%\usekomavar*{fromfax} \usekomavar{fromfax}\\[\baselineskip]
+E-Mail: team@mustergbr.de\\
+WWW: http://www.eample.com\\
+[\baselineskip] 
+Ust-Id: DE000000000\\
+}%
+}
+
+\begin{document}
+\begin{letter}{Kunde\\
+\ \\ 
+Kundenstr. 1\\
+03000  Kundenstadt}
+\opening{Sehr geehrter Herr Kunde,}
+
+für den Auftrag Nr. 0000000 berechnen wir abschließend:
+
+\vspace{10pt}
+
+\Euro{}
+\Waehrung{EUR}
+\Steuersatz{19}{7}
+
+\begin{Rechnung}[N]
+
+\Artikel{1}{Großer Auftrag}{75000,00} 
+\Abschlagszahlung{35000,00}
+\end{Rechnung}
+
+\end{letter}
+\end{document}
