@@ -116,7 +116,7 @@ rechnungman.dvi: rechnung.dtx rechnungman.drv rechnung.sty
 
 example: example.pdf
 
-example.pdf: rechnung.sty
+example.pdf: rechnung.sty example.tex
 	pdflatex example.tex
 	
 
