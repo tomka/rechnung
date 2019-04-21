@@ -2,6 +2,8 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.60 (2019-04-21, Stefan Sperling <stsp@stsp.name>)
+% - Berechnungstyp "E" für "EU Innergemeinschaftliche Lieferung" hinzugefügt
 % Änderungen V3.50 (2015-10-06, Lennart Hensler <lennarthensler@aol.com>)
 % - Breite der Anzahl-Spalte um 0.3em (auf 3.2em) vergrößert
 % - Macro hinzugefügt, um der Anzahl eine Einheit zu geben. Das kann zum
@@ -55,7 +57,7 @@
 %<driver> \ProvidesFile{rechnung.drv}
 % \fi
 %         \ProvidesFile{rechnung.dtx}
-          [2010/03/05 v3.50 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers, Sven Schoradt, Lennart Hensler]
+          [2019/04/21 v3.60 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers, Sven Schoradt, Lennart Hensler, Stefan Sperling]
 %
 % \iffalse
 %<*driver>
@@ -127,6 +129,9 @@
 %     NICHT automatisch vergrößert und dass die Einheit für ALLE NACHFOLGENDEN
 %     Artikel/Posten verwendet wird
 %    <LennartHensler@aol.com>}
+% \changes{v3.60} {2019/04/21}
+%   {Berechnungstyp "E" für "EU Innergemeinschaftliche Lieferung" hinzugefügt
+%   <stsp@stsp.name>}
 %
 % \DeleteShortVerb{\|}
 % \MakeShortVerb{\"}
@@ -184,6 +189,10 @@
 %     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind
 %     und die Mehrwertsteuer nach \S19 UStG nicht ausweisbar ist.
 %     (z.\,B. für Selbstständige im Kleingewerbe)
+%   \item[\texttt{\textbackslash begin\{Rechnung\}[E]}]
+%     Eine Rechnung bei der alle Preise als Nettopreise angegeben sind
+%     und die Mehrwertsteuer nach Art. 6 Abs. 1 UStG vom Leistungsempfänger
+%     gezahlt wird (z.\,B. für Innergemeinschaftliche Lieferungen in der EU)
 % \end{description}
 % \DescribeEnv{Rechnung\textasteriskcentered}
 % \DescribeEnv{Bestellung\textasteriskcentered}
@@ -820,6 +829,21 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\@RCHeuUST}
+% Beendet eine Tabelle mit den Nettopreisen und gibt
+% an, dass die Mehrwertsteuer nach Art. 6 Abs. 1 UStG vom
+% Leistungsempfänger gezahlt wird.
+%    \begin{macrocode}
+\newcommand*\@RCHeuUST{
+  \@RCHsline{Nettosumme}{\writeCurrency\@RCHsum}%
+  \@RCHsline{Umsatzsteuer (Innergemeinschaftliche Lieferung nach Art. 6 Abs. 1 UStG)}{\writeCurrency\@RCHustsi}
+  \hrule
+  \vskip\doublerulesep\vskip0.4pt
+  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}%
+  \writefoot
+}
+%    \end{macrocode}
+%  \end{macro}
 %  \begin{macro}{\@RCHbrutto}
 % Beendet eine Tabelle mit Bruttopreisen und gibt die
 % enthaltene Mehrwertsteuer an.
@@ -1097,6 +1121,7 @@
   \else\expandafter\if\@RCHtype N \@RCHnetto
   \else\expandafter\if\@RCHtype B \@RCHbrutto
   \else\expandafter\if\@RCHtype K \@RCHkeineUST
+  \else\expandafter\if\@RCHtype E \@RCHeuUST
   \else\PackageError{rechnung}{Unbekannter Rechnungstyp `\@RCHtype'}%
   \fi\fi\fi\fi
   \global\@RCHsum\@RCHsum\global\@RCHmwst\@RCHmwst
