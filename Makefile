@@ -118,7 +118,6 @@ example: example.pdf
 
 example.pdf: rechnung.sty example.tex
 	pdflatex example.tex
-	
 
 manual.ps.gz: manual.ps
 	gzip < $< > $@
