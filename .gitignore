@@ -1,3 +1,5 @@
 *.sty
 *.drv
 *.log
+*.aux
+*.pdf

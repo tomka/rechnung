@@ -114,6 +114,12 @@ rechnungman.dvi: rechnung.dtx rechnungman.drv rechnung.sty
 	$(RUN_MAKEINDEX)
 	$(RESOLVE_XREF)
 
+example: example.pdf
+
+example.pdf: rechnung.sty example.tex
+	pdflatex example.tex
+	
+
 manual.ps.gz: manual.ps
 	gzip < $< > $@
 
@@ -126,7 +132,7 @@ rechnung.ps: rechnung.dvi $(MANPICS)
 clean:
 	rm -f *.mp *.rawmp *.[0-9]* \
 	      *.log *.dvi *.aux *.toc *.ilg *.glo *.gls *.idx *.ind \
-	      *.ps *.mpx '#*#' *~ .*~
+	      *.ps *.mpx '#*#' *~ .*~ *.pdf
 
 realclean: clean
 	rm -f rechnung.sty rechnung.drv rechnungman*
