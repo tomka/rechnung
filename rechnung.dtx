@@ -623,6 +623,9 @@
   \@tempcntb\@tempcnta
   \divide\@tempcnta100 \the\@tempcnta,%
   \multiply\@tempcnta100\advance\@tempcntb-\@tempcnta
+  \ifnum#1<0
+    \multiply\@tempcntb-1
+  \fi
   \@tempcnta\@tempcntb\divide\@tempcnta10 \the\@tempcnta
   \multiply\@tempcnta10\advance\@tempcntb-\@tempcnta
   \the\@tempcntb
