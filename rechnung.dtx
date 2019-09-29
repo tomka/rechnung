@@ -751,7 +751,7 @@
     \vskip0.5ex
     \hbox to \textwidth{
       \hfill\footnotesize\strut
-      $^*$ Artikel mit \@RCHstsii\% Mehrwertsteuer}
+      $^*$ Artikel mit \@RCHstsii\,\% Mehrwertsteuer}
   \fi}
 %    \end{macrocode}
 %  \end{macro}
@@ -793,9 +793,9 @@
   \advance\@RCHmwstii50\divide\@RCHmwstii100
   \@RCHmwst\@RCHmwsti\advance\@RCHmwst\@RCHmwstii
   \if@RCHerm
-    \@RCHsline{zzgl. \@RCHstsii\% MwSt.}{\writeCurrency\@RCHmwstii}%
+    \@RCHsline{zzgl. \@RCHstsii\,\% MwSt.}{\writeCurrency\@RCHmwstii}%
   \fi
-  \@RCHsline{zzgl. \@RCHstsi\% MwSt.}{\writeCurrency\@RCHmwsti}%
+  \@RCHsline{zzgl. \@RCHstsi\,\% MwSt.}{\writeCurrency\@RCHmwsti}%
   \advance\@RCHsum\@RCHmwst
   \hrule
   \vskip\doublerulesep\vskip0.4pt
@@ -810,7 +810,7 @@
     \advance\@RCHabschlb\@RCHabschlmwst
     \advance\@RCHmwst-\@RCHabschlmwst
     \@RCHsline{Abschlagszahlung }{\writeCurrency\@RCHabschln}%
-    \@RCHsline{zzgl. \@RCHstsi\% MwSt. }{\writeCurrency\@RCHabschlmwst}%
+    \@RCHsline{zzgl. \@RCHstsi\,\% MwSt. }{\writeCurrency\@RCHabschlmwst}%
     \vskip\doublerulesep\vskip0.4pt
     \@RCHsline{bereits gezahlt }{\writebfCurrency\@RCHabschlb}%
     \advance\@RCHsum-\@RCHabschlb
@@ -878,10 +878,10 @@
 
   \@RCHmwst\@RCHmwsti\advance\@RCHmwst\@RCHmwstii
   \if@RCHerm
-    \@RCHsline{inkl. erm. MwSt. \@RCHstsii\%}
+    \@RCHsline{inkl. erm. MwSt. \@RCHstsii\,\%}
     {\writeCurrency\@RCHmwstii}%
   \fi
-  \@RCHsline{inkl. \@RCHstsi\% MwSt}{\writeCurrency\@RCHmwsti}%
+  \@RCHsline{inkl. \@RCHstsi\,\% MwSt}{\writeCurrency\@RCHmwsti}%
   \writefoot
 }
 %    \end{macrocode}
