@@ -33,5 +33,7 @@ Die installation kann entweder durch das Kommando `make install && make install.
 
 * Zuerst rechnung.sty erzeugen: `latex rechnung.ins`
 * Dann die Dokumentation: `latex rechnung.dtx`
-* rechnung.sty muss in den Pfad von LaTeX 2e `.../tex/latex/`, wobei „`...`“ systemspezifisch ist.
+* rechnung.sty muss in den Pfad von LaTeX 2e `.../tex/latex/`, wobei „`...`“
+  systemspezifisch ist. In den meisten Linux-Distributionen ist `~/texmf` der
+  typische Ort, sodass der gesamte Pfad `~/texmf/tex/latex/` wäre.
 
