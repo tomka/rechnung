@@ -4,6 +4,11 @@
 
 % Änderungen V3.80 (2020-08-15, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Dollar ist nun als Währung mittels \Dollar verfügbar.
+% - Die Textbausteine der Rechnung können nun mittels verschiedener
+%   \Lang-Macros verändert werden.
+% - Es gibt einen weiteren Schalter um die Rechnung ohne USt. zu stellen, wenn
+%   Rechnungen ins Nicht-EU-Ausland gehen. Dazu muss der Rechnungstyp auf I
+%   gesetzt werden.
 % Änderungen V3.70 (2019-08-28, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Negative Zahlen wie sie z.B. bei \Gutschrift vorkommen, werden nun korrekt
 %   dargestellt.
@@ -138,8 +143,15 @@
 %   {Berechnungstyp "E" für "EU Innergemeinschaftliche Lieferung" hinzugefügt
 %   <stsp@stsp.name>}
 % \changes{V3.70} {2019/08/28}
-%   {Negative Zahlen wie sie z.B. bei \Gutschrift vorkommen, werden nun
-%    korrekt dargestellt
+%   {Negative Zahlen wie sie z.B. bei "\textbackslash Gutschrift" vorkommen,
+%   werden nun korrekt dargestellt
+%   <tom@voodoo-arts.net>}
+% \changes{V3.80} {2020/08/15}
+%   {Dollar ist nun als Währung mittels "\textbackslash Dollar" verfügbar;
+%   Die Textbausteine der Rechnung können nun mittels verschiedener
+%   "\textbackslash Lang"-Macros verändert werden; Es gibt einen weiteren
+%   Schalter um die Rechnung ohne USt. zu stellen, wenn Rechnungen ins
+%   Nicht-EU-Ausland gehen. Dazu muss der Rechnungstyp auf I gesetzt werden.
 %   <tom@voodoo-arts.net>}
 %
 % \DeleteShortVerb{\|}
@@ -629,6 +641,130 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+% \subsection{Textbaustein-Macros}
+%
+%  \begin{macro}{\LangDecimalSeparator}
+% Der Dezimalwert-Seperator, voreingestellt auf das Komma (",").
+%    \begin{macrocode}
+\newcommand*\LangDecimalSeparator{,}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangPos}
+% Der Posten-Spaltenkopf, voreingestellt auf "Pos".
+%    \begin{macrocode}
+\newcommand*\LangPos{Pos}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangCount}
+% Der Anzahl-Spaltenkopf, voreingestellt auf "Anzahl".
+%    \begin{macrocode}
+\newcommand*\LangCount{Anzahl}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangArticleId}
+% Der Artikel-Nummer-Spaltenkopf, voreingestellt auf "Art. Nr.".
+%    \begin{macrocode}
+\newcommand*\LangArticleId{Art.\,Nr.}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangDescription}
+% Der Beschreibungs-Spaltenkopf, voreingestellt auf "Beschreibung".
+%    \begin{macrocode}
+\newcommand*\LangDescription{Beschreibung}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangSingleItemPrice}
+% Der Einzelpreis-Spaltenkopf, voreingestellt auf "Einzelpreis".
+%    \begin{macrocode}
+\newcommand*\LangSingleItemPrice{Einzelpreis}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangTotalPrice}
+% Der Gesamtpreis-Spaltenkopf, voreingestellt auf "Gesamtpreis".
+%    \begin{macrocode}
+\newcommand*\LangTotalPrice{Gesamtpreis}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangShippingFee}
+% Der Versandkosten-Posten, voreingestellt auf "Versandkosten".
+%    \begin{macrocode}
+\newcommand*\LangShippingFee{Versandkosten}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangTotal}
+% Der Postensumme, voreingestellt auf "Summe".
+%    \begin{macrocode}
+\newcommand*\LangTotal{Summe}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangNet}
+% Der Text für die Nettosumme, voreingestellt auf "Nettosumme".
+%    \begin{macrocode}
+\newcommand*\LangNet{Nettosumme}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangGrossTotal}
+% Der Text für die Bruttosumme, voreingestellt auf "Bruttosumme".
+%    \begin{macrocode}
+\newcommand*\LangGrossTotal{Bruttosumme}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangInvoice}
+% Der Text für "Rechnung", voreingestellt auf "Rechnung".
+%    \begin{macrocode}
+\newcommand*\LangInvoice{Rechnung}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangTaxRate}
+% Der Text für den Steuersatz.
+%    \begin{macrocode}
+\newcommand*\LangTaxRate{Steuersatz}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangSalesTaxEU}
+% Der Text für Umsatzsteuer-Posten bei Inner-EU-Handel, voreingestellt auf
+% ``Umsatzsteuer (Innergemeinschaftliche Lieferung nach Art. 6 Abs. 1 UStG)''.
+%    \begin{macrocode}
+\newcommand*\LangSalesTaxEU{Umsatzsteuer (Innergemeinschaftliche
+  Lieferung nach Art. 6 Abs. 1 UStG)}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangSalesTaxNoVAT}
+% Der Text für Nichtausweisung der Umsatzsteuer, nach Paragraph 19,
+% voreingestellt auf ``Umsatzsteuer (MwSt. nicht ausweisbar nach Paragraph 19
+% UStG)''.
+%    \begin{macrocode}
+\newcommand*\LangSalesTaxNoVAT{Umsatzsteuer (MwSt. nicht ausweisbar
+    nach \S19 UStG)}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\LangSalesTaxReverseVAT}
+% Der Text für Nichtausweisung der Umsatzsteuer durch Reverse-Charge-Verfahren,
+% nach Paragraph 3a Abs 2 UStG, voreingestellt auf ``Umsatzsteuer wird gem.
+% Paragraph 3a Abs. 2 UStG nicht erhoben. Die Steuerschuld geht auf den
+% Empfänger über''.
+%    \begin{macrocode}
+\newcommand*\LangSalesTaxReverseVAT{\parbox[t]{10cm}{Umsatzsteuer
+  wird gem.\S3a Abs.  2 UStG nicht erhoben. Die Steuerschuld geht
+  auf den Empfänger über.}}
+%    \end{macrocode}
+%  \end{macro}
+%
 % \subsection{Zahlenmacros}
 %
 %  \begin{macro}{\@RCHwrite}
@@ -638,7 +774,7 @@
 \newcommand*\@RCHwrite[1]{
   \@tempcnta=#1
   \@tempcntb\@tempcnta
-  \divide\@tempcnta100 \the\@tempcnta,%
+  \divide\@tempcnta100 \the\@tempcnta\LangDecimalSeparator%
   \multiply\@tempcnta100\advance\@tempcntb-\@tempcnta
   \ifnum#1<0
     \multiply\@tempcntb-1
@@ -794,7 +930,7 @@
 % Beendet eine Tabelle ohne Angabe von Mehrwertsteuer
 %    \begin{macrocode}
 \newcommand*\@RCHohne{
-  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}}
+  \@RCHsline{\LangTotal}{\writebfCurrency\@RCHsum}}
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -802,9 +938,9 @@
 % Beendet eine Tabelle mit Nettopreisen und Mehrwertsteuer.
 %    \begin{macrocode}
 \newcommand*\@RCHnetto{
-  \@RCHsline{Nettosumme}{\writeCurrency\@RCHsum}%
+  \@RCHsline{\LangNet}{\writeCurrency\@RCHsum}%
 %    \end{macrocode}
-% \[\left\lfloor\frac{\hbox{Nettosumme}\cdot\hbox{Steuersatz}+50}{100}\right\rfloor\]
+% \[\left\lfloor\frac{\hbox{\LangNet}\cdot\hbox{\LangTaxRate}+50}{100}\right\rfloor\]
 %    \begin{macrocode}
   \multiply\@RCHmwsti\@RCHstsi
   \advance\@RCHmwsti50\divide\@RCHmwsti100
@@ -818,7 +954,7 @@
   \advance\@RCHsum\@RCHmwst
   \hrule
   \vskip\doublerulesep\vskip0.4pt
-  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}%
+  \@RCHsline{\LangTotal}{\writebfCurrency\@RCHsum}%
   \if@RCHabschl
     \vskip\doublerulesep\vskip10pt
     \advance\@RCHabschlb\@RCHabschln
@@ -848,11 +984,11 @@
 % ausweisbar ist.
 %    \begin{macrocode}
 \newcommand*\@RCHkeineUST{
-  \@RCHsline{Nettosumme}{\writeCurrency\@RCHsum}%
-  \@RCHsline{Umsatzsteuer (MwSt. nicht ausweisbar nach \S19 UStG)}{\writeCurrency\@RCHustsi}
+  \@RCHsline{\LangNet}{\writeCurrency\@RCHsum}%
+  \@RCHsline{\LangSalesTaxNoVAT}{\writeCurrency\@RCHustsi}
   \hrule
   \vskip\doublerulesep\vskip0.4pt
-  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}%
+  \@RCHsline{\LangTotal}{\writebfCurrency\@RCHsum}%
   \writefoot
 }
 %    \end{macrocode}
@@ -864,24 +1000,42 @@
 % Leistungsempfänger gezahlt wird.
 %    \begin{macrocode}
 \newcommand*\@RCHeuUST{
-  \@RCHsline{Nettosumme}{\writeCurrency\@RCHsum}%
-  \@RCHsline{Umsatzsteuer (Innergemeinschaftliche Lieferung nach Art. 6 Abs. 1 UStG)}{\writeCurrency\@RCHustsi}
+  \@RCHsline{\LangNet}{\writeCurrency\@RCHsum}%
+  \@RCHsline{\LangSalesTaxEU}{\writeCurrency\@RCHustsi}
   \hrule
   \vskip\doublerulesep\vskip0.4pt
-  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}%
+  \@RCHsline{\LangTotal}{\writebfCurrency\@RCHsum}%
   \writefoot
 }
 %    \end{macrocode}
 %  \end{macro}
+%
+%  \begin{macro}{\@RCHkeineUSTInt}
+% Beendet eine Tabelle mit den Nettopreisen und gibt
+% an, dass die Mehrwertsteuer nach \S3a Abs. 2 UStG nicht
+% ausweisbar ist und die Steuerschuld auf den Empfänger übergeht
+% (Reverse-Charge-Verfrahren).
+%    \begin{macrocode}
+\newcommand*\@RCHkeineUSTInt{
+  \@RCHsline{\LangTotal}{\writeCurrency\@RCHsum}%
+  \@RCHsline{\LangSalesTaxReverseVAT}{\writeCurrency\@RCHustsi}
+  \hrule
+  \vskip\doublerulesep\vskip0.4pt
+  \@RCHsline{\LangTotal}{\writebfCurrency\@RCHsum}%
+  \writefoot
+}
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\@RCHbrutto}
 % Beendet eine Tabelle mit Bruttopreisen und gibt die
 % enthaltene Mehrwertsteuer an.
 %    \begin{macrocode}
 \newcommand*\@RCHbrutto{
-  \@RCHsline{Gesamtsumme}{\writebfCurrency\@RCHsum}
+  \@RCHsline{\LangTotal}{\writebfCurrency\@RCHsum}
 %    \end{macrocode}
-% \[ \left\lfloor\frac{2\cdot\mbox{Bruttosumme}\cdot\mbox{Steuersatz}+
-%     100+\mbox{Steuersatz}}{2(100+\mbox{Steuersatz})}\right\rfloor \]
+% \[ \left\lfloor\frac{2\cdot\mbox{\LangGrossTotal}\cdot\mbox{\LangTaxRate}+
+%     100+\mbox{\LangTaxRate}}{2(100+\mbox{\LangTaxRate})}\right\rfloor \]
 %    \begin{macrocode}
   \multiply\@RCHmwsti\@RCHstsi\multiply\@RCHmwsti2%
   \@tempcnta100\advance\@tempcnta\@RCHstsi
@@ -968,7 +1122,7 @@
   \@RCHtmptmp=\@RCHtmp%
   \@readNum{#2}\multiply\@RCHtmp\@RCHtmptmp
   \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen.
-  \@lineBaseX[#1]{\the\@RCHcnt}{#2\@AnzahlSuffix}{#3}{#4}{#5\,\@waehrung}
+  \@lineBaseX[#1]{\the\@RCHcnt}{#2\@AnzahlSuffix}{#3}{#4}{\writeCurrency\@RCHtmptmp}
 }
 %    \end{macrocode}
 %  \end{macro}%
@@ -996,7 +1150,7 @@
 \newcommand*\@VersandkostenX[2][X]{
   \initRechnung
   \@readNum{#2}
-  \@lineBaseX[#1]{\null}{1}{\null}{Versandkosten}{#2\,\@waehrung}
+  \@lineBaseX[#1]{\null}{1}{\null}{\LangShippingFee}{#2\,\@waehrung}
 }
 %    \end{macrocode}
 %  \end{macro}
@@ -1127,12 +1281,12 @@
 %    \end{macrocode}
 % Titelzeile ausgeben
 %    \begin{macrocode}
-    \@RCHlineX{\scriptsize Pos.}%
-              {\scriptsize Anzahl}%
-              {\scriptsize Art.\,Nr.}%
-              {\scriptsize Beschreibung\hfill}%
-              {\scriptsize Einzelpreis}%
-              {\scriptsize Gesamtpreis}
+    \@RCHlineX{\scriptsize \LangPos}%
+              {\scriptsize \LangCount}%
+              {\scriptsize \LangArticleId}%
+              {\scriptsize \LangDescription\hfill}%
+              {\scriptsize \LangSingleItemPrice}%
+              {\scriptsize \LangTotalPrice}
     \@RCHinittrue
   \fi
 }
@@ -1150,9 +1304,10 @@
   \else\expandafter\if\@RCHtype N \@RCHnetto
   \else\expandafter\if\@RCHtype B \@RCHbrutto
   \else\expandafter\if\@RCHtype K \@RCHkeineUST
+  \else\expandafter\if\@RCHtype I \@RCHkeineUSTInt
   \else\expandafter\if\@RCHtype E \@RCHeuUST
   \else\PackageError{rechnung}{Unbekannter Rechnungstyp `\@RCHtype'}%
-  \fi\fi\fi\fi
+  \fi\fi\fi\fi\fi\fi
   \global\@RCHsum\@RCHsum\global\@RCHmwst\@RCHmwst
 %    \end{macrocode}
 % bißchen Platz unter der Rechnung
