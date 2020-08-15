@@ -2,6 +2,8 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.80 (2020-08-15, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Dollar ist nun als Währung mittels \Dollar verfügbar.
 % Änderungen V3.70 (2019-08-28, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Negative Zahlen wie sie z.B. bei \Gutschrift vorkommen, werden nun korrekt
 %   dargestellt.
@@ -598,6 +600,14 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\Dollar}
+% Stellt die Währung auf Dollar um. Das Währungssymbol wird links vom Betrag
+% angezeigt.
+%    \begin{macrocode}
+\newcommand*\Dollar{\def\@waehrung{\textdollar}\setLeftCurrency}
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\DMark}
 % Stellt die Währung auf DM um. (benötigt textcomp)
 %    \begin{macrocode}
@@ -652,6 +662,15 @@
 %    \begin{macrocode}
 \newcommand*\writebfCurrency[1]{{\fontseries{b}
   \selectfont\writeCurrency{#1}}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\setLeftCurrency}
+% Legt fest, dass das Währungssymbol links des Betrags steht.
+%    \begin{macrocode}
+\newcommand*\setLeftCurrency{
+  \renewcommand*\writeCurrency[1]{\@waehrung\@RCHwrite{##1}}
+}
 %    \end{macrocode}
 %  \end{macro}
 %
