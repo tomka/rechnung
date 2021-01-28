@@ -2,6 +2,9 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.81 (2021-01-28, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Internationale Rechnungen ohne USt. haben nun die korrekte
+%   Netto-Bezeichnung.
 % Änderungen V3.80 (2020-08-15, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Dollar ist nun als Währung mittels \Dollar verfügbar.
 % - Die Textbausteine der Rechnung können nun mittels verschiedener
@@ -1017,7 +1020,7 @@
 % (Reverse-Charge-Verfrahren).
 %    \begin{macrocode}
 \newcommand*\@RCHkeineUSTInt{
-  \@RCHsline{\LangTotal}{\writeCurrency\@RCHsum}%
+  \@RCHsline{\LangNet}{\writeCurrency\@RCHsum}%
   \@RCHsline{\LangSalesTaxReverseVAT}{\writeCurrency\@RCHustsi}
   \hrule
   \vskip\doublerulesep\vskip0.4pt
