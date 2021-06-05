@@ -992,6 +992,14 @@
   \hrule
   \vskip\doublerulesep\vskip0.4pt
   \@RCHsline{\LangTotal}{\writebfCurrency\@RCHsum}%
+    \if@RCHabschl
+      \vskip\doublerulesep\vskip10pt
+      \@RCHsline{Abschlagszahlung }{\writeCurrency\@RCHabschln}%
+      \@RCHsline{\LangSalesTaxNoVAT}{\writeCurrency\@RCHustsi}
+      \advance\@RCHsum-\@RCHabschln
+      \vskip\doublerulesep\vskip10pt
+      \@RCHsline{noch zu zahlen }{\writebfCurrency\@RCHsum}%
+    \fi
   \writefoot
 }
 %    \end{macrocode}
