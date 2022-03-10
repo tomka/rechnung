@@ -2,6 +2,10 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.91 (2022-03-10, Felix Kußmaul <thoth@chensthoth.de>)
+% - Option zum Verbergen der Anzahl und Einzelpreise hinzugefügt
+% Änderungen V3.9 (2021-06-05, Felix Kußmaul <thoth@chensthoth.de>)
+% - Abschlagszahlungen für Kleinunternehmer (UStG §19) implementiert
 % Änderungen V3.81 (2021-01-28, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Internationale Rechnungen ohne USt. haben nun die korrekte
 %   Netto-Bezeichnung.
@@ -483,6 +487,13 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\@RCHamo}
+% Ein Schalter der das Anzeigen der Anzahl- und Einzelpreisspalte beeinflusst
+%    \begin{macrocode}
+\newif\if@RCHamo
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\@RCHfirst}
 % Ein Schalter der anzeigt, daß der erste Artikel eingefügt wird
 %    \begin{macrocode}
@@ -590,6 +601,14 @@
 %    \begin{macrocode}
 \newcommand*\TrennerEin[0]{\if@RCHinit\else\global\@RCHhortrue\fi}
 \newcommand*\TrennerAus[0]{\if@RCHinit\else\global\@RCHhorfalse\fi}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\AnzahlEin/Aus}
+% Schaltet Anzahlangaben und Einzelpreise ein oder aus.
+%    \begin{macrocode}
+\newcommand*\AnzahlEin[0]{\if@RCHinit\else\global\@RCHamotrue\fi}
+\newcommand*\AnzahlAus[0]{\if@RCHinit\else\global\@RCHamofalse\fi}
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -1101,7 +1120,10 @@
            \hbox to\@RCHPosWidth{\hfil #1\strut}%
            \sep
         \fi% Pos-Spalte
-        \hbox to\@RCHAnzWidth{\hfil #2\strut}\sep% Anzahl-Spalte
+        \if@RCHamo%
+           \hbox to\@RCHAnzWidth{\hfil #2\strut}%
+           \sep
+        \fi% Anzahl-Spalte
         \if@RCHartnum%
           \hbox to\@RCHArtnumWidth{\hfil #3\strut}%
           \sep%
@@ -1111,7 +1133,10 @@
            \hsize\@RCHwdt%
            \linewidth\hsize#4\null\strut\par}%
         \hfil\sep%Beschreibung
-        \hbox to\@RCHEinzelWidth{\hfil #5\strut}\sep% Einzelpreis
+        \if@RCHamo%
+           \hbox to\@RCHEinzelWidth{\hfil #5\strut}%
+           \sep%
+        \fi% Einzelpreis
         \hbox to\@RCHGesamtWidth{\hfil #6\strut}\rsep% Gesamtpreis
       }%hbox
      }%vbox
@@ -1238,6 +1263,7 @@
   \global\@RCHfirsttrue
   \global\@RCHpostrue
   \global\@RCHhortrue
+  \global\@RCHamotrue
 %    \end{macrocode}
 % Param 2: Mit Artikelnummern?
 %    \begin{macrocode}
@@ -1276,6 +1302,16 @@
       \advance\@RCHwdt-\@RCHPosWidth
       \advance\@RCHwdt-0.4pt
       \advance\@RCHwdt-2\tabcolsep
+    \fi
+%    \end{macrocode}
+% Breite wegen Anzeige von Anzahl und Einzelpreis korrigieren
+%    \begin{macrocode}
+    \unless\if@RCHamo
+      \advance\@RCHwdt+\@RCHAnzWidth
+      \advance\@RCHwdt+\@RCHEinzelWidth
+      \advance\@RCHwdt+0.8pt
+      \advance\@RCHwdt+4\tabcolsep
+      \renewcommand*{\LangTotalPrice}{Preis}
     \fi
 %    \end{macrocode}
 % Breite wegen Anzeige der Artikelnummern korrigieren
