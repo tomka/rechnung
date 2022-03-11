@@ -2,6 +2,11 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.92 (2022-03-11, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Tausendertrennung auf Basis von siunitx hinzugefügt. Ist standardmäßig
+%   aktiviert und kann mittels \TausenderTrennzeichenEin/-Aus kontrolliert
+%   werden. Mit Hilfe von \TausenderTrennzeichen kann das entsprechende
+%   Trennzeichen gesetzt werden.
 % Änderungen V3.91 (2022-03-10, Felix Kußmaul <thoth@chensthoth.de>)
 % - Option zum Verbergen der Anzahl und Einzelpreise hinzugefügt
 % Änderungen V3.9 (2021-06-05, Felix Kußmaul <thoth@chensthoth.de>)
@@ -71,6 +76,7 @@
 %</dtx>
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{rechnung}
+%<package>\RequirePackage{siunitx}
 %<driver> \ProvidesFile{rechnung.drv}
 % \fi
 %         \ProvidesFile{rechnung.dtx}
@@ -159,6 +165,12 @@
 %   "\textbackslash Lang"-Macros verändert werden; Es gibt einen weiteren
 %   Schalter um die Rechnung ohne USt. zu stellen, wenn Rechnungen ins
 %   Nicht-EU-Ausland gehen. Dazu muss der Rechnungstyp auf I gesetzt werden.
+%   <tom@voodoo-arts.net>}
+% \changeS{V3.92) {2022/03/11}
+%   {Tausendertrennung auf Basis von siunitx hinzugefügt. Ist standardmäßig
+%   aktiviert und kann mittels \TausenderTrennzeichenEin/-Aus kontrolliert
+%   werden. Mit Hilfe von \TausenderTrennzeichen kann das entsprechende
+%   Trennzeichen gesetzt werden
 %   <tom@voodoo-arts.net>}
 %
 % \DeleteShortVerb{\|}
@@ -306,6 +318,21 @@
 % Das Makro kann beliebig oft auftreten. Dabei beeinflusst die jeweile Definition
 % immer nur die nachfolgenden Artikel/Posten. Dies kann verwendet werden, um
 % unterschiedlichen Artikeln/Posten unterschiedliche Einheiten zu geben.
+%
+% \DescribeMacro{\TausenderTrennzeichenEin}\DescribeMacro{\TausenderTrennzeichenAus}
+% Große Zahlenwerte sind oft einfacher zu lesen, wenn Tausendergruppen separiert
+% dargestellt werden. In der deutschen Sprache geschicht dies üblicherweise
+% durch einen Punkt, in anderen Regionen kann dies aber auch ein Komma oder ein
+% kleines Leerzeichen sein. Hier wird das Paket "siunitx" genutzt, mit einer
+% Standardkofiguration mit Tauserderpunkt. Die Makros
+% "\TausenderTrennzeichenEin" und "\TausenderTrennzeichenAus" erlauben es, diese
+% Zahlendarstellung ein- bzw.  auszuschalten. Voreinstellung ist
+% "\TausenderTrennzeichenEin". Mit dem Makro "\TausenderTrennzeichen" kann ein
+% alternatives Trennzeichen gewählt werden, selbiges ist auch direkt mittels
+% "\sisetup" möglich.
+% Die Makros können beliebig oft auftreten, es wird jedoch nur das letzte vor
+% dem ersten Artikel beachtet. Sobald ein Artikel angegeben wurde, kann die
+% Einstellung nicht mehr verändert werden.
 %
 % \section{Beispiele}
 %
@@ -466,6 +493,19 @@
 \@RCHEinzelWidth=4.8em%
 \@RCHGesamtWidth=6.1em%
 %    \end{macrocode}
+% Die Standardeinstellung zur Tausendergruppierung: Tausenderpunkt ab vier
+% Ziffern. Dies kann in der eigenen Rechnung mittels "\sisetup" überschrieben
+% werden.
+%    \begin{macrocode}
+\sisetup{
+  detect-all,
+  locale=DE,
+  group-separator={.},
+  group-digits=integer,
+  group-minimum-digits=4,
+  input-ignore={.}
+}
+%    \end{macrocode}
 %  \begin{macro}{\@RCHerm}
 % Ein Schalter der das Auftauchen von ermäßigtem MwSt-Satz anzeigt.
 %    \begin{macrocode}
@@ -609,6 +649,24 @@
 %    \begin{macrocode}
 \newcommand*\AnzahlEin[0]{\if@RCHinit\else\global\@RCHamotrue\fi}
 \newcommand*\AnzahlAus[0]{\if@RCHinit\else\global\@RCHamofalse\fi}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\TausenderTrennzeichenEin/Aus}
+% Schaltet Tausendertrennung ein oder aus (z.B. mittels Punkt).
+%    \begin{macrocode}
+\newcommand*\TausenderTrennzeichenEin[0]{\sisetup{group-digits=integer}}
+\newcommand*\TausenderTrennzeichenAus[0]{\sisetup{group-digits=none}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\TausenderTrennzeichen}
+% Setzt das Tausendertrennung (z.B. auf einen Punkt).
+%    \begin{macrocode}
+\newcommand*\TausenderTrennzeichen[1]{\sisetup{group-separator={#1}}}
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -796,7 +854,7 @@
 \newcommand*\@RCHwrite[1]{
   \@tempcnta=#1
   \@tempcntb\@tempcnta
-  \divide\@tempcnta100 \the\@tempcnta\LangDecimalSeparator%
+  \divide\@tempcnta100 \expandafter\num\expandafter{\the\@tempcnta}\LangDecimalSeparator%
   \multiply\@tempcnta100\advance\@tempcntb-\@tempcnta
   \ifnum#1<0
     \multiply\@tempcntb-1
