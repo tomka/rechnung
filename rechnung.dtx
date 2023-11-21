@@ -183,37 +183,33 @@
 %
 %
 % Da das Paket ohne jegliche Kosten lizenziert wird, besteht keinerlei
-% Gewährleistung.  Ich hafte weder für unmittelbar noch mittelbar
-% entstehende Schäden aus der Verwendung des Paketes. Ich stelle das
-% Paket so zur Verfügung, \glqq wie es ist\grqq, ohne irgendeine
-% Gewährleistung, weder ausdrücklich noch implizit, einschließlich,
-% aber nicht begrenzt auf, die Tauglichkeit und Verwendbarkeit für
-% einen bestimmten Zweck. Das volle Risiko bezüglich Qualität und
-% Leistungsfähigkeit liegt bei Ihnen. Sollte das Programm fehlerhaft
-% sein, übernehmen Sie die Kosten für notwendigen Service, Reparatur
-% oder Korrektur.
+% Gewährleistung.  Ich hafte weder für unmittelbar noch mittelbar entstehende
+% Schäden aus der Verwendung des Paketes. Ich stelle das Paket so zur Verfügung,
+% \glqq wie es ist\grqq, ohne irgendeine Gewährleistung, weder ausdrücklich noch
+% implizit, einschließlich, aber nicht begrenzt auf, die Tauglichkeit und
+% Verwendbarkeit für einen bestimmten Zweck. Das volle Risiko bezüglich Qualität
+% und Leistungsfähigkeit liegt bei Ihnen. Sollte das Programm fehlerhaft sein,
+% übernehmen Sie die Kosten für notwendigen Service, Reparatur oder Korrektur.
 %
-% Die Weitergabe dieses Pakets ist erlaubt solange es
-% \emph{vollständig} weitergegeben wird. Änderungen an Dateien dieses
-% Pakets sind nur zulässig wenn die Datei \emph{vorher} umbenannt
-% wird, mein Copyright-Vermerke und der Haftungssausschluß erhalten
-% bleiben und klar ersichtlich ist, daß es sich um eine veränderte
-% Variante handelt.
+% Die Weitergabe dieses Pakets ist erlaubt solange es \emph{vollständig}
+% weitergegeben wird. Änderungen an Dateien dieses Pakets sind nur zulässig wenn
+% die Datei \emph{vorher} umbenannt wird, mein Copyright-Vermerke und der
+% Haftungssausschluß erhalten bleiben und klar ersichtlich ist, daß es sich um
+% eine veränderte Variante handelt.
 %
 %
 %
 % \section{Beschreibung}
 %
 % \DescribeEnv{Rechnung}\DescribeEnv{Bestellung}
-% Die Umgebung \env{Rechnung} bzw \env{Bestellung} erstellt eine Rechnung
-% oder Bestellung. Die beiden Makros sind identisch, es wird jedoch empfohlen,
-% zur besseren Lesbarkeit das jeweils passende zu verwenden. Im weiteren Text
-% wird nur \env{Rechnung} verwendet.
-% Jede Position besteht aus einer Positionsnummer, die automatisch
-% erstellt wird, der Anzahl, der Artikelbeschreibung und dem
-% Einzelpreis des Artikels. Die Preise und die Gesamtsumme werden von
-% \env{Rechnung} berechnet. \env{Rechnung} hat ein optionales
-% Argument, daß den Typ der Rechnung/Bestellung angibt:
+% Die Umgebung \env{Rechnung} bzw \env{Bestellung} erstellt eine Rechnung oder
+% Bestellung. Die beiden Makros sind identisch, es wird jedoch empfohlen, zur
+% besseren Lesbarkeit das jeweils passende zu verwenden. Im weiteren Text wird
+% nur \env{Rechnung} verwendet.  Jede Position besteht aus einer
+% Positionsnummer, die automatisch erstellt wird, der Anzahl, der
+% Artikelbeschreibung und dem Einzelpreis des Artikels. Die Preise und die
+% Gesamtsumme werden von \env{Rechnung} berechnet. \env{Rechnung} hat ein
+% optionales Argument, daß den Typ der Rechnung/Bestellung angibt:
 % \begin{description}
 %   \item[\texttt{\textbackslash begin\{Rechnung\}}]
 %     Eine \glqq Rechnung\grqq\ ohne Mehrwertsteuer. Diese Variante eignet
@@ -237,88 +233,85 @@
 % \end{description}
 % \DescribeEnv{Rechnung\textasteriskcentered}
 % \DescribeEnv{Bestellung\textasteriskcentered}
-% Die Umgebung \env{Rechnung\textasteriskcentered} bzw. \env{Bestellung\textasteriskcentered}
-% ist zu \env{Rechnung} bzw. \env{Bestellung}
-% identisch, bis auf die, hier zusätzlich vorhandenen, Artikelnummern.
-% Der Platz für die Artikelbeschreibungen wird entsprechend kleiner.
+% Die Umgebung \env{Rechnung\textasteriskcentered} bzw.
+% \env{Bestellung\textasteriskcentered} ist zu \env{Rechnung} bzw.
+% \env{Bestellung} identisch, bis auf die, hier zusätzlich vorhandenen,
+% Artikelnummern.  Der Platz für die Artikelbeschreibungen wird entsprechend
+% kleiner.
 %
 % \DescribeMacro{\Artikel}\DescribeMacro{\Posten}
-% Mit "\Artikel" oder "\Posten" werden die einzelnen Positionen
-% der Rechnung eingegeben. Es besteht kein
-% Unterschied zwischen den beiden Makros.\\
+% Mit "\Artikel" oder "\Posten" werden die einzelnen Positionen der Rechnung
+% eingegeben. Es besteht kein Unterschied zwischen den beiden Makros.\\
 % "\Artikel{"\textlangle Anzahl\textrangle"}{"
 %    \textlangle Artikel\textrangle"}{"
 %    \textlangle Einzelpreis\textrangle"}"\\
-% bzw. bei \env{Rechnung\textasteriskcentered}
-% und \env{Bestellung\textasteriskcentered}:\\
+% bzw. bei \env{Rechnung\textasteriskcentered} und
+% \env{Bestellung\textasteriskcentered}:\\
 % "\Artikel{"\textlangle Anzahl\textrangle"}{"
 %    \textlangle Artikelnummer\textrangle"}{"
 %    \textlangle Artikel\textrangle"}{"
 %    \textlangle Einzelpreis\textrangle"}"\\
-% "\Artikel" hat ein optionales
-% Argument, daß es erlaubt für diesen Artikel den ermäßigten
-% Mehrwertsteuersatz auszuwählen. Diese Positionen werden hinter dem
-% Preis mit einem $^*$ gekennzeichnet und unter der Tabelle wird bei
-% Netto- und Bruttorechnungen eine \glqq Fußnote\grqq\ erzeugt.
-% Zum Beispiel:\\
-% "\Artikel[e]{5}{Der Herr der Ringe}{59,80}"\\ fügt eine Position mit
-% 5 \emph{Herr der Ringe} zum ermäßigten Mehrwertsteuersatz ein.
-% Mittels dem Makro "\ArtikelPrefix{...}" kann man jedem Element der
-% Artikel einen Prefix geben. Damit lässt sich beispielsweise die
-% Schriftgröße dieser Auflistung im Ganzen ändern:\\
-% "\ArtikelPrefix{\small}"
+% "\Artikel" hat ein optionales Argument, daß es erlaubt für diesen Artikel den
+% ermäßigten Mehrwertsteuersatz auszuwählen. Diese Positionen werden hinter dem
+% Preis mit einem $^*$ gekennzeichnet und unter der Tabelle wird bei Netto- und
+% Bruttorechnungen eine \glqq Fußnote\grqq\ erzeugt.  Zum Beispiel:\\
+% "\Artikel[e]{5}{Der Herr der Ringe}{59,80}"\\ fügt eine Position mit 5
+% \emph{Herr der Ringe} zum ermäßigten Mehrwertsteuersatz ein.  Mittels dem
+% Makro "\ArtikelPrefix{...}" kann man jedem Element der Artikel einen Prefix
+% geben. Damit lässt sich beispielsweise die Schriftgröße dieser Auflistung im
+% Ganzen ändern:\\ "\ArtikelPrefix{\small}"
 %
 %
 % Versandkosten lassen sich mit \DescribeMacro{\Versandkosten}
-% "\Versandkosten{"\textlangle Preis\textrangle"}" eingeben und
-% bekommen keine Positionsnummer. Es sind auch ermäßigte Versandkosten über
-% den optionalen Parameter "[e]" möglich, allerdings ist nicht bekannt, ob
-% es sowas überhaupt irgendwo gibt.
+% "\Versandkosten{"\textlangle Preis\textrangle"}" eingeben und bekommen keine
+% Positionsnummer. Es sind auch ermäßigte Versandkosten über den optionalen
+% Parameter "[e]" möglich, allerdings ist nicht bekannt, ob es sowas überhaupt
+% irgendwo gibt.
 %
-% \DescribeMacro{\Waehrung} Die Währungseinheit, die hinter die Beträge
-% gesetzt wird, ist auf DM voreingestellt. Mit "\Waehrung{...}" kann
-% eine beliebige andere Währung gesetzt werden, "\Waehrung{F}" setzt
-% z.\,B. die Währung auf \glqq F\grqq. Für den Euro gibt es eine Abkürzung
-% "\Euro" die identisch zu "\Waehrung{\texteuro}" ist und (falls das
-% "textcomp"-Paket eingebunden ist) ein \texteuro\ erzeugt.
+% \DescribeMacro{\Waehrung}
+% Die Währungseinheit, die hinter die Beträge gesetzt wird, ist auf DM
+% voreingestellt. Mit "\Waehrung{...}" kann eine beliebige andere Währung
+% gesetzt werden, "\Waehrung{F}" setzt z.\,B. die Währung auf \glqq F\grqq. Für
+% den Euro gibt es eine Abkürzung "\Euro" die identisch zu
+% "\Waehrung{\texteuro}" ist und (falls das "textcomp"-Paket eingebunden ist)
+% ein \texteuro\ erzeugt.
 %
-% \DescribeMacro{\Steuersatz}Die Steuersätze lassen sich mit
-% "\Steuersatz{"\textlangle Steuersatz 1\textrangle"}{"
-%  \textlangle Steuersatz 2\textrangle"}" festlegen. Standardmäßig ist
-% Steuersatz 1 auf "19" und Steuersatz 2 auf "7" eingestellt. Dies entspricht
-% dem Mehrwertsteuersatz von 19\% und dem ermäßigtem Mehrwertsteuersatz von
-% 7\%.
+% \DescribeMacro{\Steuersatz}
+% Die Steuersätze lassen sich mit "\Steuersatz{"\textlangle Steuersatz
+% 1\textrangle"}{" \textlangle Steuersatz 2\textrangle"}" festlegen.
+% Standardmäßig ist Steuersatz 1 auf "19" und Steuersatz 2 auf "7" eingestellt.
+% Dies entspricht dem Mehrwertsteuersatz von 19\% und dem ermäßigtem
+% Mehrwertsteuersatz von 7\%.
 %
 % \DescribeMacro{\Gesamtsumme}\DescribeMacro{\Mehrwertsteuer}
 % Nach dem Ende einer \env{Rechnung}- bzw. \env{Bestellung}\-Umgebung lassen
-% sich die Gesamtsumme und die Mehrwertsteuer
-% noch mit den Makros "\Gesamtsumme" und
-% "\Mehrwertsteuer" in den Text einfügen.
+% sich die Gesamtsumme und die Mehrwertsteuer noch mit den Makros "\Gesamtsumme"
+% und "\Mehrwertsteuer" in den Text einfügen.
 %
 % \DescribeMacro{\PositionEin}\DescribeMacro{\PositionAus}
-% Hiermit läßt sich die Ausgabe der Positionsspalte aktivieren bzw. unterdrücken,
-% da diese nicht immer benötigt wird. Voreingestellt ist "\PositionEin"
-% Die Makros können beliebig oft
-% auftreten, es wird jedoch nur das letzte vor dem ersten Artikel beachtet.
-% Sobald ein Artikel angegeben wurde, werden die Makros ignoriert.
+% Hiermit läßt sich die Ausgabe der Positionsspalte aktivieren bzw.
+% unterdrücken, da diese nicht immer benötigt wird. Voreingestellt ist
+% "\PositionEin" Die Makros können beliebig oft auftreten, es wird jedoch nur
+% das letzte vor dem ersten Artikel beachtet.  Sobald ein Artikel angegeben
+% wurde, werden die Makros ignoriert.
 %
 % \DescribeMacro{\TrennerEin}\DescribeMacro{\TrennerAus}
 % Eine Rechnung sieht oft besser aus, wenn sich keine Trennlinien zwischen den
 % einzelnen Posten befinden. Da dies aber Geschmackssache ist, kann man die
 % Ausgabe von Trennlinien mit den Makros "\TrennerEin" bzw. "\TrennerAus"
-% steuern. Voreinstellung ist "\TrennerEin".
-% Die Makros können beliebig oft
+% steuern. Voreinstellung ist "\TrennerEin".  Die Makros können beliebig oft
 % auftreten, es wird jedoch nur das letzte vor dem ersten Artikel beachtet.
-% Sobald ein Artikel angegeben wurde, kann die Einstellung nicht mehr
-% verändert werden.
+% Sobald ein Artikel angegeben wurde, kann die Einstellung nicht mehr verändert
+% werden.
 %
-% \DescribeMacro{\AnzahlEinheit}Die Einheit aller nachfolgender Artikel/Posten
-% lassen sich mit "\AnzahlEinheit{"\textlangle Einheit\textrangle"}" festlegen.
-% Die Einheit wird von einem Leerzeichen getrennt hinter die Anzahl eingefügt.
-% Standardmäßig ist die keine Einheit gewählt.
-% Das Makro kann beliebig oft auftreten. Dabei beeinflusst die jeweile Definition
-% immer nur die nachfolgenden Artikel/Posten. Dies kann verwendet werden, um
-% unterschiedlichen Artikeln/Posten unterschiedliche Einheiten zu geben.
+% \DescribeMacro{\AnzahlEinheit}
+% Die Einheit aller nachfolgender Artikel/Posten lassen sich mit
+% "\AnzahlEinheit{"\textlangle Einheit\textrangle"}" festlegen.  Die Einheit
+% wird von einem Leerzeichen getrennt hinter die Anzahl eingefügt.
+% Standardmäßig ist die keine Einheit gewählt.  Das Makro kann beliebig oft
+% auftreten. Dabei beeinflusst die jeweile Definition immer nur die
+% nachfolgenden Artikel/Posten. Dies kann verwendet werden, um unterschiedlichen
+% Artikeln/Posten unterschiedliche Einheiten zu geben.
 %
 % \DescribeMacro{\TausenderTrennzeichenEin}\DescribeMacro{\TausenderTrennzeichenAus}
 % Große Zahlenwerte sind oft einfacher zu lesen, wenn Tausendergruppen separiert
@@ -330,10 +323,9 @@
 % Zahlendarstellung ein- bzw.  auszuschalten. Voreinstellung ist
 % "\TausenderTrennzeichenEin". Mit dem Makro "\TausenderTrennzeichen" kann ein
 % alternatives Trennzeichen gewählt werden, selbiges ist auch direkt mittels
-% "\sisetup" möglich.
-% Die Makros können beliebig oft auftreten, es wird jedoch nur das letzte vor
-% dem ersten Artikel beachtet. Sobald ein Artikel angegeben wurde, kann die
-% Einstellung nicht mehr verändert werden.
+% "\sisetup" möglich.  Die Makros können beliebig oft auftreten, es wird jedoch
+% nur das letzte vor dem ersten Artikel beachtet. Sobald ein Artikel angegeben
+% wurde, kann die Einstellung nicht mehr verändert werden.
 %
 % \section{Beispiele}
 %
