@@ -327,6 +327,11 @@
 % nur das letzte vor dem ersten Artikel beachtet. Sobald ein Artikel angegeben
 % wurde, kann die Einstellung nicht mehr verändert werden.
 %
+% \DescribeMacro{\Storno}
+% Mit diesem Macro kann eine Stornorechnung erstellt werden. Alle Einträge der
+% Anzahl-Spalte werden Negativ dargestellt, sodass auch die Zwischensummen und
+% Gesamtsummen negativ werden.
+%
 % \section{Beispiele}
 %
 % \subsection{Bestellung ohne Artikelnummern}
@@ -448,6 +453,30 @@
 %
 % \vbox{
 % \Euro
+% \begin{Rechnung}[B]
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{42,73}
+% \Artikel{20}{Erdnüsse}{0,49}
+% \Versandkosten{5,80}
+% \end{Rechnung}
+% }
+%
+% \subsection{Stornorechnung}
+%
+% Stornorechnungen haben negative Einträge in der Anzahl-Spalte.
+%
+% \begin{verbatim}
+% \Euro
+% \Storno
+% \begin{Rechnung}[B]
+% \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{42,73}
+% \Artikel{20}{Erdnüsse}{0,49}
+% \Versandkosten{5,80}
+% \end{Rechnung}
+% \end{verbatim}
+%
+% \vbox{
+% \Euro
+% \Storno
 % \begin{Rechnung}[B]
 % \Artikel[e]{1}{Donald E. Knuth: The \TeX-Book}{42,73}
 % \Artikel{20}{Erdnüsse}{0,49}
@@ -584,6 +613,13 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%  \begin{macro}{\@RCHstorno}
+% Ein Schalter der die Rechnung als Stornorechnung kennzeichnen kann
+%    \begin{macrocode}
+\newif\if@RCHstorno
+%    \end{macrocode}
+%  \end{macro}
+%
 %  \begin{macro}{\@ArtikelPrefix}
 % aktueller Artikelprefix. Voreingestellt ist dieser leer.
 %    \begin{macrocode}
@@ -657,6 +693,13 @@
 % Setzt das Tausendertrennung (z.B. auf einen Punkt).
 %    \begin{macrocode}
 \newcommand*\TausenderTrennzeichen[1]{\sisetup{group-separator={#1}}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\Storno}
+% Schaltet Stornorechnungsmodus ein.
+%    \begin{macrocode}
+\newcommand*\Storno{\if@RCHinit\else\global\@RCHstornotrue\fi}
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -1212,9 +1255,16 @@
   \advance\@RCHcnt1%
   \@readNum{#5}
   \@RCHtmptmp=\@RCHtmp%
-  \@readNum{#2}\multiply\@RCHtmp\@RCHtmptmp
-  \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen.
-  \@lineBaseX[#1]{\the\@RCHcnt}{#2\@AnzahlSuffix}{#3}{#4}{\writeCurrency\@RCHtmptmp}
+  \@readNum{#2}
+  \if@RCHstorno
+    \multiply\@RCHtmp-1
+    \multiply\@RCHtmp\@RCHtmptmp
+    \advance\@RCHtmp-99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen.
+  \else
+    \multiply\@RCHtmp\@RCHtmptmp
+    \advance\@RCHtmp99\divide\@RCHtmp100%Aufrunden auf 2 Nachkommastellen.
+  \fi
+  \@lineBaseX[#1]{\the\@RCHcnt}{\if@RCHstorno--\fi#2\@AnzahlSuffix}{#3}{#4}{\writeCurrency\@RCHtmptmp}
 }
 %    \end{macrocode}
 %  \end{macro}%
