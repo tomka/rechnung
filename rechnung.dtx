@@ -1013,9 +1013,17 @@
 % \[\left\lfloor\frac{\hbox{\LangNet}\cdot\hbox{\LangTaxRate}+50}{100}\right\rfloor\]
 %    \begin{macrocode}
   \multiply\@RCHmwsti\@RCHstsi
-  \advance\@RCHmwsti50\divide\@RCHmwsti100
+  \ifnum\@RCHmwsti<0
+    \advance\@RCHmwsti-50\divide\@RCHmwsti100
+  \else
+    \advance\@RCHmwsti50\divide\@RCHmwsti100
+  \fi
   \multiply\@RCHmwstii\@RCHstsii
-  \advance\@RCHmwstii50\divide\@RCHmwstii100
+  \ifnum\@RCHmwstii<0
+    \advance\@RCHmwstii-50\divide\@RCHmwstii100
+  \else
+    \advance\@RCHmwstii50\divide\@RCHmwstii100
+  \fi
   \@RCHmwst\@RCHmwsti\advance\@RCHmwst\@RCHmwstii
   \if@RCHerm
     \@RCHsline{zzgl. \@RCHstsii\,\% MwSt.}{\writeCurrency\@RCHmwstii}%
