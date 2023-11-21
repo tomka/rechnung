@@ -2,6 +2,8 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.93 (2023-11-10, Felix Kußmaul <thoth@chensthoth.de>)
+% - Korrektur der UStG-Formulierung für Kleinunternehmer
 % Änderungen V3.92 (2022-03-11, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Tausendertrennung auf Basis von siunitx hinzugefügt. Ist standardmäßig
 %   aktiviert und kann mittels \TausenderTrennzeichenEin/-Aus kontrolliert
@@ -80,7 +82,7 @@
 %<driver> \ProvidesFile{rechnung.drv}
 % \fi
 %         \ProvidesFile{rechnung.dtx}
-          [2019/08/28 v3.70 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers, Sven Schoradt, Lennart Hensler, Stefan Sperling]
+          [2023/11/10 v3.93 BMG Rechnungs Style, enhanced by Ulrich Sibiller, Tom Kazimiers, Sven Schoradt, Lennart Hensler, Stefan Sperling, Felix Kußmaul]
 %
 % \iffalse
 %<*driver>
@@ -89,7 +91,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
 \usepackage{german}
-\usepackage{rechnung}
 \begin{document}
 \DocInput{rechnung.dtx}
 \end{document}
@@ -97,7 +98,7 @@
 % \fi
 %
 % \GetFileInfo{rechnung.dtx}
-% \title{Das \textsf{rechnung} Paket V3.30}
+% \title{Das \textsf{rechnung} Paket V3.93}
 % \author{M G Berberich, Ulrich Sibiller, Tom Kazimiers}
 % \date{2010-03-05}
 %
@@ -825,8 +826,8 @@
 % voreingestellt auf ``Umsatzsteuer (MwSt. nicht ausweisbar nach Paragraph 19
 % UStG)''.
 %    \begin{macrocode}
-\newcommand*\LangSalesTaxNoVAT{Umsatzsteuer (MwSt. nicht ausweisbar
-    nach \S19 UStG)}
+\newcommand*\LangSalesTaxNoVAT{Umsatzsteuer (nicht ausweisbar
+    nach \S19 UStG, Kleinunternehmer)}
 %    \end{macrocode}
 %  \end{macro}
 %
