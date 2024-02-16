@@ -1,0 +1,42 @@
+\documentclass[backaddress=false,11pt,a4paper]{scrlttr2}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{rechnung}
+\usepackage{eurosym}
+
+\setkomavar{subject}{Rechnung Nr.: XX-XX}
+
+\parindent0pt
+
+\usepackage{color,calc,ngerman,mathptmx}
+
+\setkomavar{firsthead}{\null\hfill
+\parbox[t][\headheight][t]{6cm}{%
+\raggedright
+\color[gray]{.5}%
+Muster GbR\\[\baselineskip]
+}%
+}
+
+\begin{document}
+\begin{letter}{Kunde\\
+03000 Kundenstadt}
+\opening{Sehr geehrter Herr Kunde,}
+
+für den Auftrag Nr. 0000000 berechnen wir abschließend:
+
+\vspace{10pt}
+
+\Euro{}
+\Waehrung{\euro}
+\Steuersatz{19}{7}
+
+\begin{Rechnung}[N]
+\Artikel{1}{Großer Auftrag}{100000,00}
+\Artikel{1}{Großer Auftrag}{214748,36}
+\Artikel{1}{Großer Auftrag}{214748,37}
+\Artikel{1}{Großer Auftrag}{500000,00}
+\end{Rechnung}
+\end{letter}
+\end{document}
