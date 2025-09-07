@@ -2,6 +2,10 @@
 %% File: rechnung.dtx Copyright (C) 1998 M G Berberich
 %% berberic@fmi.uni-passau.de
 
+% Änderungen V3.95 (2025-09-07, Tom Kazimiers <tom@voodoo-arts.net>)
+% - Spaltenbreiten können jetzt manuell angepasst werden mithilfe der neuen
+%   Funktionen \setRCHPosWidth, \setRCHAnzWidth, \setRCHArtnumWidth,
+%   \setRCHArtWidth, \setRCHEinzelWidth und \setRCHGesamtWidth.
 % Änderungen V3.94 (2023-11-21, Tom Kazimiers <tom@voodoo-arts.net>)
 % - Stornemdus mittels \Storno hinzugefügt, Mengen und Postensummen werden
 %   dadurch negativ.
@@ -507,7 +511,7 @@
 \newcount\@RCHabschlmwst
 %    \end{macrocode}
 %
-% Die Dimensionen der Spalten
+% Die Dimensionen der Spalten, optional anpassbar.
 %    \begin{macrocode}
 \newdimen\@RCHPosWidth
 \newdimen\@RCHAnzWidth
@@ -520,6 +524,12 @@
 \@RCHArtnumWidth=5em%
 \@RCHEinzelWidth=4.8em%
 \@RCHGesamtWidth=6.1em%
+\def\setRCHPosWidth#1{\@RCHPosWidth=#1\relax}
+\def\setRCHAnzWidth#1{\@RCHAnzWidth=#1\relax}
+\def\setRCHArtnumWidth#1{\@RCHArtnumWidth=#1\relax}
+\def\setRCHArtWidth#1{\@RCHArtWidth=#1\relax}
+\def\setRCHEinzelWidth#1{\@RCHEinzelWidth=#1\relax}
+\def\setRCHGesamtWidth#1{\@RCHGesamtWidth=#1\relax}
 %    \end{macrocode}
 % Die Standardeinstellung zur Tausendergruppierung: Tausenderpunkt ab vier
 % Ziffern. Dies kann in der eigenen Rechnung mittels "\sisetup" überschrieben
