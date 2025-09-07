@@ -983,9 +983,9 @@
        \ifnum \@tempcnta = 2
        \else
          \ifnum \@tempcnta > 0
-	   \advance\@tempcnta1
+           \advance\@tempcnta1
            \multiply\@RCHtmp10
-	   \@readB\relax
+           \@readB\relax
          \else
            \multiply\@RCHtmp100\PackageError{rechnung}{keine
            Nachkommastellen gefunden}
@@ -1013,9 +1013,9 @@
        Nachkommastellen gefunden}
      \fi
      \ifnum \@tempcnta < 2
-	 \advance\@tempcnta1
+         \advance\@tempcnta1
          \multiply\@RCHtmp10
-	 \@readC\relax
+         \@readC\relax
      \fi
   \else
      \advance\@tempcnta1
@@ -1224,14 +1224,14 @@
 \goodbreak\nointerlineskip
     \vbox{
       \if@RCHhor
-	\hrule
+        \hrule
       \else
         \if@RCHfirst
           \hrule
         \fi
       \fi
       \hbox to\textwidth{%
-	\lsep%
+        \lsep%
         \if@RCHpos%
            \hbox to\@RCHPosWidth{\hfil #1\strut}%
            \sep
